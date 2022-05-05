@@ -71,7 +71,7 @@ def get_bbs_list(offset=0):
     conn = mc.connect(**config)
     cur = conn.cursor()
     sql = '''SELECT b.bid, b.uid, u.uname, b.title, b.content, 
-                    DATE_FORMAT(b.modTime, '%Y-%m-%d %H:%i:%s') AS modTime,
+                    DATE_FORMAT(b.modTime, '%Y-%m-%d %T') AS modTime,
                     b.viewCount, b.replyCount
                 FROM bbs AS b
                 JOIN users AS u
@@ -99,7 +99,7 @@ def get_bbs_data(bid):
     conn = mc.connect(**config)
     cur = conn.cursor()
     sql = '''SELECT b.bid, b.uid, u.uname, b.title, b.content, 
-                    DATE_FORMAT(b.modTime, '%Y-%m-%d %H:%i:%s') AS modTime,
+                    DATE_FORMAT(b.modTime, '%Y-%m-%d %T') AS modTime,
                     b.viewCount, b.replyCount
                 FROM bbs AS b
                 JOIN users AS u
@@ -115,7 +115,7 @@ def get_replies(bid):
     conn = mc.connect(**config)
     cur = conn.cursor()
     sql = '''SELECT r.rid, r.bid, r.uid, u.uname, r.content,
-                    DATE_FORMAT(r.regTime, '%Y-%m-%d %H:%i:%s') AS regTime,
+                    DATE_FORMAT(r.regTime, '%Y-%m-%d %T') AS regTime,
                     r.isMine
                 FROM reply AS r
                 JOIN users AS u
