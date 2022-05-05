@@ -8,7 +8,7 @@ config = json.loads(config_str)
 def get_user_info(uid):
     conn = mc.connect(**config)
     cur = conn.cursor()
-    sql = '''SELECT pwd, uname, email, DATE_FORMAT(reg_date, '%%Y-%%m-%%d') AS reg_date FROM users 
+    sql = '''SELECT pwd, uname, email, DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date FROM users 
                 WHERE uid=%s AND is_deleted=0;'''
     cur.execute(sql, (uid,))
     row = cur.fetchone()
@@ -28,7 +28,7 @@ def insert_user(params):
 def get_user_list(offset=0):
     conn = mc.connect(**config)
     cur = conn.cursor()
-    sql = '''SELECT uid, uname, email, DATE_FORMAT(reg_date, '%%Y-%%m-%%d') AS rdate 
+    sql = '''SELECT uid, uname, email, DATE_FORMAT(reg_date, '%Y-%m-%d') AS rdate 
                 FROM users
                 WHERE is_deleted=0
                 ORDER BY reg_date DESC 
@@ -71,7 +71,7 @@ def get_bbs_list(offset=0):
     conn = mc.connect(**config)
     cur = conn.cursor()
     sql = '''SELECT b.bid, b.uid, u.uname, b.title, b.content, 
-                    DATE_FORMAT(b.modTime, '%%Y-%%m-%%d %%H:%%i:%%s') AS modTime,
+                    DATE_FORMAT(b.modTime, '%Y-%m-%d %H:%i:%s') AS modTime,
                     b.viewCount, b.replyCount
                 FROM bbs AS b
                 JOIN users AS u
@@ -99,7 +99,7 @@ def get_bbs_data(bid):
     conn = mc.connect(**config)
     cur = conn.cursor()
     sql = '''SELECT b.bid, b.uid, u.uname, b.title, b.content, 
-                    DATE_FORMAT(b.modTime, '%%Y-%%m-%%d %%H:%%i:%%s') AS modTime,
+                    DATE_FORMAT(b.modTime, '%Y-%m-%d %H:%i:%s') AS modTime,
                     b.viewCount, b.replyCount
                 FROM bbs AS b
                 JOIN users AS u
@@ -115,7 +115,7 @@ def get_replies(bid):
     conn = mc.connect(**config)
     cur = conn.cursor()
     sql = '''SELECT r.rid, r.bid, r.uid, u.uname, r.content,
-                    DATE_FORMAT(r.regTime, '%%Y-%%m-%%d %%H:%%i:%%s') AS regTime,
+                    DATE_FORMAT(r.regTime, '%Y-%m-%d %H:%i:%s') AS regTime,
                     r.isMine
                 FROM reply AS r
                 JOIN users AS u

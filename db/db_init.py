@@ -49,7 +49,7 @@ cur.execute(sql)
 
 # 샘플 게시글
 contents = [
-    ('james', '[문의]OracleCloud Flask 설치', 'OracleCloud에 어떻게 Flask를 설치했는지 알려주시면 감사하겠습니다.^^'),
+    ('james', '[문의]AWS EC2 Flask 설치', 'AWS EC2에 어떻게 Flask를 설치했는지 알려주시면 감사하겠습니다.^^'),
     ('maria', '대단한 웹 사이트네요!!!', '멋진 웹 사이트입니다.')
 ]
 sql = 'INSERT INTO bbs(uid, title, content) VALUES(%s,%s,%s);'

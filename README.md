@@ -32,8 +32,8 @@
 $ sudo yum install mariadb-server
 $ sudo vi /etc/my.cnf.d/server.cnf
     [mysqld]
-    character-set-server=utf8mb4
-    collation-server=utf8mb4_unicode_ci
+    character-set-server=utf8
+    collation-server=utf8_unicode_ci
     skip-character-set-client-handshake
 $ sudo systemctl start mariadb
 $ sudo systemctl enable mariadb
