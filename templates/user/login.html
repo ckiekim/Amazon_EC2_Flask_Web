@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <style>
+        th, td {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>로그인</strong>
+    <span style="font-size: 0.6em;">
+        <a href="/user/register" class="ml-5"><i class="fas fa-user-plus"></i> 회원가입</a>
+    </span>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form action="/user/login" method="post">
+                <table class="table table-borderless">
+                    <tr>
+                        <td><label for="uid" class="col-form-label">아이디</label></td>
+                        <td><input type="text" name="uid" id="uid" class="form-control" placeholder="아이디"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="pwd" class="col-form-label">패스워드</label></td>
+                        <td><input type="password" name="pwd" id="pwd" class="form-control" placeholder="패스워드"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <input class="btn btn-primary" type="submit" value="로그인">
+                            <input class="btn btn-secondary" type="reset" value="취소">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <p style="text-align: center;">
+                
+            </p>
+        </div>
+        <div class="col-3"></div>
+    </div>
+{% endblock %}

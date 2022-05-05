@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <style>
+        th, td {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>게시글 상세 조회</strong>
+    <span style="font-size: 0.6em;">
+        <a href="/bbs/list/{{page}}" class="ml-5""><i class="fas fa-list-ul"></i> 목록</a>
+        <a href="/bbs/update/{{row[1]}}/bid/{{row[0]}}" class="ml-3"><i class="far fa-edit"></i> 수정</a>  <!-- uid, bid -->
+        <a href="/bbs/delete/{{row[1]}}/bid/{{row[0]}}" class="ml-3"><i class="fas fa-trash-alt"></i> 삭제</a>
+    </span>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-8">
+            <h4>{{row[3]}}</h4>     <!-- title -->
+            <h6>글번호: {{row[0]}} | {{row[5]}}</h6>    <!-- bid, modTime -->
+        </div>
+        <div class="col-4" style="text-align: right;">
+            <h4>{{row[2]}}</h4>     <!-- uname -->
+            <h6>조회 {{row[6]+inc}}&nbsp;&nbsp;댓글 {{row[7]}}</h6>     <!-- viewCount, replyCount -->
+        </div>
+        <div class="col-12"><hr></div>
+        <div class="col-12">
+            {% autoescape false %}
+                {{row[4]}}       <!-- content -->
+            {% endautoescape %}
+        </div>
+
+        <div class="col-12"><hr></div>
+        <div class="col-12">
+            {% for reply in replies %}
+                {% if reply[6]==0 %}        <!-- isMine -->
+                    <div class="card bg-light text-dark mt-1" style="margin-right: 48%;">
+                {% else %}
+                    <div class="card text-right mt-1" style="margin-left:48%;">
+                {% endif %}
+                <div class="card-body">
+                    {{reply[3]}}&nbsp;&nbsp;{{reply[5]}}<br>    <!-- uname, regTime-->
+                    {% autoescape false %}
+                        {{reply[4] | replace('\n', '<br>')}}  <!-- content -->
+                    {% endautoescape %}
+                </div>
+            </div>
+            {% endfor %}
+            <form class="form-inline" action="/bbs/reply" method="post">
+                <input type="hidden" name="bid" value="{{row[0]}}">     <!-- bid -->
+                <input type="hidden" name="uid" value="{{row[1]}}">     <!-- uid -->
+                <label for="content" class="ml-5 mt-3 mr-3">댓글</label>
+                <textarea class="ml-3 mt-3 mr-3" id="content" name="content" rows="3" cols="80"></textarea>
+                <button type="submit" class="btn btn-primary ml-3 mt-3 mr-5">등록</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

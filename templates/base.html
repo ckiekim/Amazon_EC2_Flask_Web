@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}CK World{% endblock %}</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="{{url_for('static', filename='img/favicon.ico')}}">
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+    {% block additional_head %}{% endblock %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <script type="text/javascript">
+                alert("{{messages[0]}}");
+            </script>
+        {% endif %}
+    {% endwith %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <!-- Brand/logo -->
+        <a class="navbar-brand" style="margin-left:50px;margin-right:100px;" href="#">
+            <img src="{{url_for('static', filename='img/ck.png')}}" alt="Logo" style="height:45px;">
+        </a>
+
+        <!-- Links -->
+        <ul class="nav nav-pills mr-auto">
+            <li class="nav-item mr-3">
+                <a class="nav-link {% if menu.ho %}active{% endif %}" 
+                   href="{% if menu.ho %}#{% else %}/{% endif %}">
+                    <i class="fa fa-home"></i> Home
+                </a>
+            </li>
+            <li class="nav-item mr-3">
+                <a class="nav-link {% if menu.bb %}active{% endif %}" 
+                   href="{% if menu.bb %}#{% else %}/bbs/list/1{% endif %}">
+                    <i class="far fa-list-alt"></i> 자유게시판
+                </a>
+            </li>
+            <li class="nav-item mr-3">
+                <a class="nav-link {% if menu.us %}active{% endif %}" 
+                   href="{% if menu.us %}#{% else %}/user/list/1{% endif %}">
+                   <i class="fas fa-user-friends"></i> 사용자
+                </a>
+            </li>
+            {% if session['uid'] %}
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="/user/logout">
+                        <i class="fas fa-sign-out-alt"></i> 로그아웃
+                    </a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="nav-link disabled" href="#">
+                        {{session['uname']}}님 환영합니다.
+                    </a>
+                </li>
+            {% else %}
+                <li class="nav-item mr-3">
+                    <a class="nav-link {% if menu.li %}active{% endif %}" href="/user/login">
+                        <i class="fas fa-sign-in-alt"></i> 로그인
+                    </a>
+                </li>
+                <!-- <li class="nav-item mr-3">
+                    <a class="nav-link {% if menu.rg %}active{% endif %}" href="/user/register">
+                        <i class="fas fa-user-plus"></i> 회원가입
+                    </a>
+                </li> -->
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+            </li>
+        </ul>
+        <div class="navbar-text" id="weather">
+            {% block weather %}{% endblock %}
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-2">
+                <ul class="nav flex-column nav-pills">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if menu.se %}active{% endif %}" 
+                           data-toggle="dropdown" href="#">지역분석(서울)</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/seoul/park">공원 현황</a>
+                            <a class="dropdown-item" href="/seoul/park_gu/area">공원 비교</a>
+                            <a class="dropdown-item" href="/seoul/crime/crime">범죄</a>
+                            <a class="dropdown-item" href="/seoul/cctv/graph">CCTV</a>
+                        </div>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if menu.cg %}active{% endif %}" 
+                           data-toggle="dropdown" href="#">카토그램</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/cartogram/pop/crisis_area">인구소멸위기</a>
+                            <a class="dropdown-item" href="/cartogram/coffee">커피지수</a>
+                        </div>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if menu.cr %}active{% endif %}" 
+                           data-toggle="dropdown" href="#">크롤링</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/crawling/food">맛집(식신)</a>
+                            <a class="dropdown-item" href="/crawling/music">음악(지니)-BS</a>
+                            <a class="dropdown-item" href="/crawling/music_jquery">음악(지니)-DataTables</a>
+                            <a class="dropdown-item" href="/crawling/book">도서(인터파크)</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/crawling/youtube">유튜브 랭킹</a>
+                        </div>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if menu.wc %}active{% endif %}" 
+                           data-toggle="dropdown" href="#">워드 클라우드</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/wordcloud/han/gift">여친 선물</a>
+                            <a class="dropdown-item" href="/wordcloud/eng/Alice">Alice in Wonderland</a>
+                            <a class="dropdown-item" href="/wordcloud/eng/Starwars">Star Wars</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/wordcloud/text">텍스트 파일</a>
+                        </div>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if menu.rs %}active{% endif %}" 
+                           data-toggle="dropdown" href="#">추천 시스템</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/recommendation/book">책(유사도)</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/recommendation/movie">영화(유사도)</a>
+                            <a class="dropdown-item" href="/recommendation/ml_latest">영화(잠재요인)</a>
+                        </div>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if menu.cf %}active{% endif %}" 
+                           data-toggle="dropdown" href="#">분류</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/classification/titanic">타이타닉</a>
+                            <a class="dropdown-item" href="/classification/pima">피마인디언</a>
+                            <a class="dropdown-item" href="/classification/cancer">유방암</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/classification/iris">아이리스</a>
+                            <a class="dropdown-item" href="/classification/wine">와인</a>
+                        </div>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if menu.ac %}active{% endif %}" 
+                           data-toggle="dropdown" href="#">고급 분류</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/advanced/digits">MNIST(Toy) 손글씨</a>
+                            <a class="dropdown-item" href="/advanced/mnist">MNIST 손글씨</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/advanced/image">이미지(딥러닝)</a>
+                            <a class="dropdown-item" href="/advanced/news">뉴스그룹 분류</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/advanced/face">얼굴 검출</a>
+                            <a class="dropdown-item" href="/advanced/ocr">문자 인식(OCR)</a>
+                        </div>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if menu.re %}active{% endif %}" 
+                           data-toggle="dropdown" href="#">회귀</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/regression/diabetes">당뇨병</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/regression/iris">아이리스 피처</a>
+                            <a class="dropdown-item" href="/regression/boston">보스톤 집값</a>
+                        </div>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item">
+                        <a class="nav-link {% if menu.cu %}active{% endif %}" 
+                           href="{% if menu.cu %}#{% else %}/cluster/cluster{% endif %}">군집화/PCA</a>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if menu.st %}active{% endif %}" 
+                        data-toggle="dropdown" href="#">감성 분석</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/sentiment/spam">Spam 메일</a>
+                            <a class="dropdown-item" href="/sentiment/imdb">IMDB 리뷰</a>
+                            <a class="dropdown-item" href="/sentiment/naver">네이버 영화평</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/sentiment/imdb_lexicon">IMDB리뷰(비지도)</a>
+                        </div>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if menu.nl %}active{% endif %}" 
+                        data-toggle="dropdown" href="#">자연어</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/nat_lang/translate">번역</a>
+                            <a class="dropdown-item" href="/nat_lang/tts">음성 합성</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/nat_lang/emotion">외국어 감성분석</a>
+                        </div>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                </ul>
+            </div>
+            <div class="col-10">
+                <h3>{% block subtitle %}{% endblock %}</h3>
+                <hr>
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>  
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center fixed-bottom">
+        <span class="navbar-text">
+            Copyright &copy; 2021-2022 CK World Corp. All rights reserved.
+        </span>
+    </nav>
+    {% block additional_body %}
+    {% endblock %}
+</body>
+</html>

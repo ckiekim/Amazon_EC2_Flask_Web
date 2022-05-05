@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <style>
+        td { text-align: center; }
+    </style>
+{% endblock %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>Spam 메일 분류 결과</strong>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <table class="table">
+                <tr>
+                    <td>레이블</td>
+                    <td><strong>{{res.label}}</strong></td>
+                </tr>
+                <tr style="background-color: beige;">
+                    <td>CountVectorizer + 나이브 베이즈</td>
+                    <td><strong>{{res.pred_cn}}</strong></td>
+                </tr>
+                <tr style="background-color: aliceblue">
+                    <td>TfidfVectorizer + 로지스틱 회귀</td>
+                    <td><strong>{{res.pred_tl}}</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <button class="btn btn-primary" 
+                                onclick="location.href='/sentiment/spam'">재실행</button>
+                    </td>
+                </tr>
+            </table>
+            <div><small>{{content}}</small></div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+{% endblock %}

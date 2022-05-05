@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>군집화</strong><small> - PCA and K-Means Clustering</small>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <form action="/cluster/cluster" method="POST" enctype="multipart/form-data">
+                <table class="table table-borderless">
+                    <tr>
+                        <td rowspan="2" style="vertical-align: middle;"><label for="csv">데이터셋</label></td>
+                        <td colspan="2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="option" id="radio3" value="direct">
+                                <label class="form-check-label" for="radio3">직접 입력</label>
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="option" id="radio1" value="iris" checked>
+                                <label class="form-check-label" for="radio1">아이리스</label>
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="option" id="radio2" value="wine">
+                                <label class="form-check-label" for="radio2">와인</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <div class="custom-file mb-3">
+                                <input type="file" class="custom-file-input" id="csv" name="csv">
+                                <label class="custom-file-label" for="csv">군집화할 CSV 파일 선택</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="k_number">군집수(K)</label></td>
+                        <td> 
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="k_number" id="k_number1" value="2">
+                                <label class="form-check-label" for="k_number1">2</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="k_number" id="k_number2" value="3" checked>
+                                <label class="form-check-label" for="k_number2">3</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="k_number" id="k_number3" value="4">
+                                <label class="form-check-label" for="k_number3">4</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="k_number" id="k_number4" value="5">
+                                <label class="form-check-label" for="k_number4">5</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="k_number" id="k_number5" value="6">
+                                <label class="form-check-label" for="k_number5">6</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="k_number" id="k_number6" value="7">
+                                <label class="form-check-label" for="k_number6">7</label>
+                            </div>
+                            <!-- <input type="text" class="form-control" id="k_number" name="k_number"> -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" style="text-align: center;">
+                            <button type="submit" class="btn btn-primary mr-2">실행</button>
+                            <button type="reset" class="btn btn-secondary">취소</button>
+                        </td>
+                    </tr>
+                </table>		
+            </form>
+        </div>
+        <div class="col-2"></div>
+    </div>
+{% endblock %}
+{% block additional_body %}
+    <script>
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+{% endblock %}

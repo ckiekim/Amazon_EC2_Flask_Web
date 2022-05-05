@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>영화 추천</strong>
+{% endblock %}
+{% block content %}
+    <div class="row mt-5">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="d-flex align-items-center">
+                <strong>프로그램 로딩에 시간이 걸립니다.</strong>
+                <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+            </div>
+        </div>
+        <div class="col-1"></div>
+    </div>
+    <form style="display: none" action="/recommendation/movie" method="POST" id="form">
+        <input type="hidden" id="dummy" name="dummy" value=""/>
+    </form>
+{% endblock %}
+{% block additional_body %}
+    <script>
+        window.onload = function() {
+            $("#form").submit();
+        }
+    </script>
+{% endblock %}

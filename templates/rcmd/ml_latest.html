@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>영화 추천</strong>(잠재요인 협업 필터링)
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <form action="/recommendation/ml_latest" method="POST">
+                <table class="table table-borderless">
+                    <tr class="d-flex">
+                        <td class="col-3" style="text-align: center;"><label for="index">사용자 ID</label></td>
+                        <td class="col-9" style="text-align: center;">
+                            <input class="form-control" type="text" id="index" name="index" placeholder="1~610 사이의 정수값">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <button type="submit" class="btn btn-primary">실행</button>&nbsp;&nbsp;&nbsp;
+                            <button type="reset" class="btn btn-secondary">취소</button>
+                        </td>
+                    </tr>
+                </table>		
+            </form>
+        </div>
+        <div class="col-2"></div>                    
+    </div>
+{% endblock %}

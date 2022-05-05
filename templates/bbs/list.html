@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <style>
+        th, td {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>게시판 글 목록</strong>
+    <span style="font-size: 0.6em;">
+        <a href="/bbs/write" class="ml-5"><i class="far fa-file-alt"></i> 글쓰기</a>
+    </span>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-condensed table-hover" style="margin-bottom: 80px;">
+                <tr class="table-secondary d-flex">
+                    <th class="col-1">번호</th>
+                    <th class="col-6">제목</th>
+                    <th class="col-2">글쓴이</th>
+                    <th class="col-2">날짜/시간</th>
+                    <th class="col-1">조회수</th>
+                </tr>
+                {% for row in bbs_list %}
+                    <tr class="d-flex">
+                        <td class="col-1">{{row[0]}}</td>
+                        <td class="col-6"><a href="/bbs/view/{{row[0]}}"><strong>{{row[3]}}
+                            {% if row[7] %}<span class="text-danger">[{{row[7]}}]</span>{% endif %}</strong></a></td>
+                        <td class="col-2">{{row[2]}}</td>
+                        <td class="col-2">{% if today==row[5][:10] %}{{row[5][11:]}}{% else %}{{row[5][:10]}}{% endif %}</td>
+                        <td class="col-1">{{row[6]}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link active" href="{% if page_no>10 %}/bbs/list/{{((page_no-1)/10 | round)*10}}{% else %}#{% endif %}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span></a>
+                </li>
+                {% for page in range(start_page, end_page+1) %}
+                    {% if page==page_no %}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">
+                                {{page}}<span class="sr-only">(current)</span>
+                            </span>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="/bbs/list/{{page}}">{{page}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item">
+                    <a class="page-link" href="{% if end_page<total_page %}/bbs/list/{{((page_no/10+0.9)|round)*10+1}}{% else %}#{% endif %}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span></a>
+                </li>
+            </ul>         
+        </div>
+    </div>
+{% endblock %}

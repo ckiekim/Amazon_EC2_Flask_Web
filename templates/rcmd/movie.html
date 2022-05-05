@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>영화 추천</strong>(코사인 유사도)
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <form action="/recommendation/movie_res" method="POST">
+                <table class="table table-borderless">
+                    <tr class="d-flex">
+                        <td class="col-3" style="text-align: center;"><label for="list">영화제목 리스트</label></td>
+                        <td class="col-1">
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" id="kind1" name="kind" value="list" checked>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="col-8">
+                            <select class="custom-select custom-select-md" id="list" name="list">
+                                {% for key, value in movie_dict.items() %}
+                                    <option value="{{value}}">{{key}}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-3" style="text-align: center;"><label for="index">영화제목 인덱스</label></td>
+                        <td class="col-1">
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" id="kind2" name="kind" value="index">
+                                </label>
+                            </div>
+                        </td>
+                        <td class="col-8" style="text-align: center;">
+                            <input class="form-control" type="text" id="index" name="index" placeholder="0 ~ 9999 사이의 정수값">
+                        </td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-3" style="text-align: center;"><label for="title">영화제목 직접입력</label></td>
+                        <td class="col-1">
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" id="kind3" name="kind" value="direct">
+                                </label>
+                            </div>
+                        </td>
+                        <td class="col-8" style="text-align: center;">
+                            <input class="form-control" type="text" id="title" name="title" placeholder="Movie title">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center;">
+                            <button type="submit" class="btn btn-primary">실행</button>&nbsp;&nbsp;&nbsp;
+                            <button type="reset" class="btn btn-secondary">취소</button>
+                        </td>
+                    </tr>
+                </table>		
+            </form>
+        </div>
+        <div class="col-1"></div>                    
+    </div>
+{% endblock %}
+{% block additional_body %}
+    <script>
+        $('#list').on('input', () => {
+            $('#kind1')[0].checked = true
+        });
+        $('#index').on('input', () => {
+            $('#kind2')[0].checked = true
+        });
+        $('#title').on('input', () => {
+            $('#kind3')[0].checked = true
+        });
+    </script>
+{% endblock %}

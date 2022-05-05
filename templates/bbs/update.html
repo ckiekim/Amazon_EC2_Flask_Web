@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <script src="https://cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
+{% endblock %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>글 수정하기</strong>
+    <span style="font-size: 0.6em;">
+        <a href="/bbs/list/{{page}}" class="ml-5""><i class="fas fa-list-ul"></i> 목록</a>
+    </span>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <form action="/bbs/update/{{row[1]}}/bid/{{row[0]}}" method="post">
+                <table class="table table-borderless">
+                    <tr>
+                        <td><label for="title" class="col-form-label">제목</label></td>
+                        <td><input type="text" name="title" id="title" class="form-control" value="{{row[3]}}"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="content" class="col-form-label">내용</label></td>
+                        <td><textarea class="form-control" name="content" id="content" rows="10">{{row[4]}}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <input class="btn btn-primary" type="submit" value="제출">
+                            <input class="btn btn-secondary" type="reset" value="취소">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block additional_body %}
+    <script>
+        CKEDITOR.replace('content');
+    </script>
+{% endblock %}

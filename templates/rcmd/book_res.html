@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <style>
+        th, td {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>도서 추천</strong>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-condensed" style="margin-bottom: 80px;">
+                <tr class="d-flex">
+                    <th class="col-2">이미지</th>
+                    <th class="col-6">제목</th>
+                    <th class="col-2">글쓴이</th>
+                    <th class="col-2">장르</th>
+                </tr>
+                {% for book in book_list %}
+                    <tr class="d-flex">
+                        <td class="col-2">
+                            <img src="{{book[0]}}" height="72">
+                        </td>
+                        <td class="col-6">
+                            {% if loop.index0 >= 1 %}
+                                <span class="badge badge-primary badge-pill">{{loop.index0}}</span>&nbsp;&nbsp;
+                            {% endif %}
+                            {{book[1]}}
+                        </td>
+                        <td class="col-2">{{book[2]}}</td>
+                        <td class="col-2">{{book[3]}}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="4">
+                        <button class="btn btn-primary"
+                                onclick="location.href='/recommendation/book'">재실행</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>   
+{% endblock %}

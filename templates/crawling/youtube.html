@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <style>
+        th, td {
+            text-align: center;
+        } 
+    </style>
+{% endblock %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>YouTube 랭크 Top 100</strong>
+{% endblock %}
+{% block content %}
+    <table id="example" class="display compact" style="width:100%;">
+        <thead>
+            <tr>
+                <th>순위</th><th>카테고리</th><th>채널명</th>
+                <th>구독자수</th><th>조회수</th><th>비디오수</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in youtube_list %}
+                <tr>
+                    <td>{{item.rank}}</td>
+                    <td>{{item.category}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.subscriber}}</td>
+                    <td>{{item.view}}</td>
+                    <td>{{item.video}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>            
+{% endblock %}
+{% block additional_body %}
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                info: false,
+                searching: true,
+                paging: true,
+                ordering: false,
+                //order: [[ 0, "asc" ]],
+                columnDefs: [{
+                    "targets": [ 0 ],
+                    "visible": false,
+                    "searchable": false
+                }],
+                language: {
+                    thousands: ',',
+                    search: '',
+                    searchPlaceholder: "검색어",
+                    paginate: {
+                        first: '처음',
+                        previous: '이전',
+                        next: '다음',
+                        last: '마지막',
+                    }
+                },
+                oLanguage: {
+                    sLengthMenu: "_MENU_",
+                },
+                "lengthMenu": [[10, -1], ["10개씩 보기", "모두 보기"]]
+            });
+        } );
+    </script>
+{% endblock %}

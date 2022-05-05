@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <style>
+        th, td {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>사용자 목록</strong>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <table class="table table-condensed table-hover" style="margin-bottom: 80px;">
+                <tr class="table-secondary d-flex">
+                    <th class="col-1">번호</th>
+                    <th class="col-2">uid</th>
+                    <th class="col-2">이름</th>
+                    <th class="col-3">이메일</th>
+                    <th class="col-2">가입일</th>
+                    <th class="col-2">액션</th>
+                </tr>
+                {% for row in user_list %}
+                    <tr class="d-flex">
+                        <td class="col-1">{{loop.index}}</td>
+                        <td class="col-2">{{row[0]}}</td>
+                        <td class="col-2">{{row[1]}}</td>
+                        <td class="col-3">{{row[2]}}</td>
+                        <td class="col-2">{{row[3]}}</td>
+                        <td class="col-2">
+                            <a href="/user/update/{{row[0]}}"><i class="fas fa-user-edit"></i></a>
+                            <a href="/user/delete/{{row[0]}}" class="ml-2"><i class="fas fa-user-minus"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link active" href="{% if page_no>10 %}/user/list/{{((page_no-1)/10 | round)*10}}{% else %}#{% endif %}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span></a>
+                </li>
+                {% for page in range(start_page, end_page+1) %}
+                    {% if page==page_no %}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">
+                                {{page}}<span class="sr-only">(current)</span>
+                            </span>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="/user/list/{{page}}">{{page}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item">
+                    <a class="page-link" href="{% if end_page<total_page %}/user/list/{{((page_no/10+0.9)|round)*10+1}}{% else %}#{% endif %}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span></a>
+                </li>
+            </ul>         
+        </div>
+        <div class="col-1"></div>
+    </div>
+{% endblock %}

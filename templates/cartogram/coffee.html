@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>커피 지수</strong>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <form action="/cartogram/coffee" method="POST">
+                <table class="table table-borderless">
+                    <tr>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="item" id="item1" value="커피지수" checked>
+                                <label class="form-check-label" for="item1">
+                                    커피지수
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="item" id="item2" value="스타벅스">
+                                <label class="form-check-label" for="item2">
+                                    스타벅스 매장수
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="item" id="item3" value="이디야">
+                                <label class="form-check-label" for="item3">
+                                    이디야 매장수
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="item" id="item4" value="커피빈">
+                                <label class="form-check-label" for="item4">
+                                    커피빈 매장수
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="item" id="item5" value="빽다방">
+                                <label class="form-check-label" for="item5">
+                                    빽다방 매장수
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">
+                            <button type="submit" class="btn btn-primary mr-2">실행</button>
+                            <button type="reset" class="btn btn-secondary">취소</button>
+                        </td>
+                    </tr>
+                </table>		
+            </form>
+            <br><p>
+                ※ 커피지수는 스타벅스와 커피빈 매장수를 이디야와 빽다방 매장수로 나눈 값입니다.
+            </p>
+        </div>
+        <div class="col-4"></div>
+    </div>
+{% endblock %}

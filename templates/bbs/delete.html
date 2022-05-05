@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>글 삭제하기</strong>
+    <span style="font-size: 0.6em;">
+        <a href="/bbs/list/{{page}}" class="ml-5""><i class="fas fa-list-ul"></i> 목록</a>
+    </span>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <div class="card border-warning mt-3">
+                <div class="card-body">
+                    <strong class="card-title">삭제하시겠습니까?</strong>
+                    <p class="card-text text-center">
+                        <br>
+                        <button class="btn btn-primary" onclick="location.href='/bbs/deleteConfirm/{{bid}}'">삭제</button>
+                        <button class="btn btn-secondary" onclick="location.href='/bbs/view/{{bid}}'">취소</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
+{% endblock %}

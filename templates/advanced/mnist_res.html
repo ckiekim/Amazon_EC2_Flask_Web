@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <style>
+        td {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>MNIST 손글씨 이미지 분류 결과</strong>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <table class="table">
+                <tr>
+                    <td>이미지</td>
+                    {% for i in result.index %}
+                        <td><img src="{{url_for('static', filename='img/mnist'+(loop.index|string)+'.png', q=mtime)}}" width="200" alt="숫자 이미지"></td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>레이블</td>
+                    {% for i in result.label %}
+                        <td>{{i}}</td>
+                    {% endfor %}
+                </tr>
+                <tr style="background-color: beige;">
+                    <td>SVM</td>
+                    {% for i in result.pred_sv %}
+                        <td>{{i}}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align: center;">
+                        <button class="btn btn-primary" 
+                                onclick="location.href='/advanced/mnist'">재실행</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-1"></div>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>사용자 정보 수정</strong>
+    <span style="font-size: 0.6em;">
+        <a href="/user/list/{{page}}" class="ml-5""><i class="fas fa-user-friends"></i> 목록</a>
+    </span>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form action="/user/update/{{uid}}" method="post">
+                <input type="hidden" name="hashed_pwd" value={{row[0]}}>
+                <table class="table table-borderless">
+                    <tr>
+                        <td><label for="uid">사용자 ID</label></td>
+                        <td><input type="text" name="uid" id="uid" value="{{uid}}" disabled></td>
+                    </tr>
+                    <tr>
+                        <td><label for="pwd">패스워드</label></td>
+                        <td><input type="password" name="pwd" id="pwd"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="pwd2">패스워드 확인</label></td>
+                        <td><input type="password" name="pwd2" id="pwd2"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="uname">이름</label></td>
+                        <td><input type="text" name="uname" id="uname" value={{row[1]}}></td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">이메일</label></td>
+                        <td><input type="text" name="email" id="email" value={{row[2]}}></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <input class="btn btn-primary" type="submit" value="수정">
+                            <input class="btn btn-secondary" type="reset" value="취소">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
+{% endblock %}
