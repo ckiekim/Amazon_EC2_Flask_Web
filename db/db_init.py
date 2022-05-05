@@ -1,10 +1,11 @@
-import pymysql, json
+import json
+import mysql.connector as mc
 
 with open('mysql.json') as fp:
     config_str = fp.read()
 config = json.loads(config_str)
 
-conn = pymysql.connect(**config)
+conn = mc.connect(**config)
 cur = conn.cursor()
 
 # 사용자 테이블 생성
