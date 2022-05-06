@@ -19,7 +19,7 @@
 - jQuery 3.6, jQuery-ui 1.12.1
 
 ### Hardware System
-- AWS EC2 t2.micro, 16GB HDD, Amazon Linux 2
+- AWS EC2 t2.mini, 2GB Memory, 16GB HDD, Amazon Linux 2
 
 ### API 접속 Key 
 - Weather API key (https://openweathermap.org/api)
@@ -97,4 +97,12 @@ $ wget http://cdn.naver.com/naver/NanumFont/fontfiles/NanumFont_TTF_ALL.zip
 $ unzip NanumFont_TTF_ALL.zip -d NanumFont
 $ sudo mv NanumFont /usr/share/fonts
 $ sudo fc-cache -fv
+</pre>
+
+#### 7. 정리
+<pre>
+$ rm A* *.zip
+$ git config --global user.name "본인 이름"
+$ git config --global user.email 본인 이메일
+# github를 사용하기 위해서는 토큰을 생성한 후, 패스워드 입력할 때 입력해야 함
 </pre>

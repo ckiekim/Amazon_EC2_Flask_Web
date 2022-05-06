@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib as mpl 
 import matplotlib.pyplot as plt 
 # 한글폰트 사용
-mpl.rc('font', family='Malgun Gothic')
+mpl.rc('font', family='NanumGothic')
 mpl.rc('axes', unicode_minus=False)
 
 BORDER_LINES = [
