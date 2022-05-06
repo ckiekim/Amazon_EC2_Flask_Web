@@ -18,6 +18,11 @@ df_test = pd.DataFrame(X_test, columns=train.columns)
 df_test['target'] = y_test
 df_test.to_csv('../static/data/mnist/mnist_test.csv', index=False)
 
+X_train, _, y_train, _ = train_test_split(
+    X_train, y_train, stratify=y_train, test_size=0.2, random_state=2021
+)
+print(X_train.shape, y_train.shape)
+
 scaler = MinMaxScaler()
 scaler.fit(X_train)
 X_train_scaled = scaler.transform(X_train)
