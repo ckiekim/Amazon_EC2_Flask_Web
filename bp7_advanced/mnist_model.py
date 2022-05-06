@@ -19,7 +19,7 @@ df_test['target'] = y_test
 df_test.to_csv('../static/data/mnist/mnist_test.csv', index=False)
 
 X_train, _, y_train, _ = train_test_split(
-    X_train, y_train, stratify=y_train, test_size=0.2, random_state=2021
+    X_train, y_train, stratify=y_train, test_size=0.4, random_state=2021
 )
 print(X_train.shape, y_train.shape)
 
