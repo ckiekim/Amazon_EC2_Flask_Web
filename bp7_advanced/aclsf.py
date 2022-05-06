@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, session, g
 from flask import current_app, redirect, url_for
 from sklearn.datasets import load_digits
-from tensorflow.keras.applications.resnet50 import ResNet50, decode_predictions
+#from tensorflow.keras.applications.resnet50 import ResNet50, decode_predictions
 from PIL import Image, ImageDraw, ImageFont
 import os, joblib
 import requests, urllib3, json, base64
@@ -23,10 +23,10 @@ news_max_index = 4438
 max_image_size = 2048
 max_image_len = 2 ** 21
 
-''' class ResNet50():
+class ResNet50():
     pass
 def decode_predictions():
-    pass '''
+    pass
 
 @aclsf_bp.before_app_first_request
 def before_app_first_request():
