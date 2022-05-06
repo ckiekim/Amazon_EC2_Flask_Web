@@ -11,6 +11,7 @@
 
 ### Software Version
 - Anaconda3-2022.05 with python 3.9.7
+- Tensorflow 2.8.0
 - Flask 1.1.2
 - Surprise 1.1.1
 - Folium 0.12.1.post1
@@ -99,10 +100,32 @@ $ sudo mv NanumFont /usr/share/fonts
 $ sudo fc-cache -fv
 </pre>
 
-#### 7. 정리
+#### 7. 설치 후 후속작업
 <pre>
 $ rm A* *.zip
+$ python
+    >>> import nltk
+    >>> nltk.download('vader_lexicon')
 $ git config --global user.name "본인 이름"
 $ git config --global user.email 본인 이메일
-# github를 사용하기 위해서는 토큰을 생성한 후, 패스워드 입력할 때 입력해야 함
+    # github를 사용하기 위해서는 토큰을 생성한 후, 패스워드 입력할 때 입력해야 함
+$ git clone https://github.com/ckiekim/Amazon_EC2_Flask_Web.git web
+$ cd web
+$ mkdir log                                                 # logging.json upload
+$ cd db                                                     # mysql.json upload
+$ python db_init.py
+$ cd ../static
+$ mkdir clus_pca_data img keys model movies upload          # img, keys, movies data upload
+$ cd data
+$ mkdir mnist, movies, naver, news                          # mnist, movies, naver, news data upload
+$ cd ~/web/bp5_recommendation
+$ python make_movie_data(ml-latest_model)
+$ cd ../bp6_classification
+$ python cancer_model(iris_model, pima_model, titanic_model, wine_model)
+$ cd ../bp7_advanced
+$ python digits_model(mnist_model, news_model)
+$ cd ../bpb_sentiment
+$ python imdb_model(naver_model, spam_model)
+$ cd ~/web
+$ nohup python app.py > /dev/null 2>&1 &                    # 프로그램 실행
 </pre>
