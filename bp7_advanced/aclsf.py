@@ -204,7 +204,7 @@ def face():
             draw.rectangle(((x, y), (x+w, y+h)), outline='green', width=2)
             text = '남' if face['facial_attributes']['gender']['male'] > 0.5 else '여'
             text += str(int(float(faces[i]['facial_attributes']['age']+0.5)))
-            draw.text((x+10, y-20), text, font=ImageFont.truetype('malgun.ttf', 20), fill=(0,255,0))
+            draw.text((x+10, y-20), text, font=ImageFont.truetype('NanumGothic.ttf', 20), fill=(0,255,0))
             for key in face['facial_points'].keys():
                 for part in face['facial_points'][key]:
                     x = int(float(part[0]) * width)
