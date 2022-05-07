@@ -24,11 +24,6 @@ news_max_index = 4438
 max_image_size = 2048
 max_image_len = 2 ** 21
 
-''' class ResNet50():
-    pass
-def decode_predictions():
-    pass '''
-
 @aclsf_bp.before_app_first_request
 def before_app_first_request():
     global resnet

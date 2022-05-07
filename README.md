@@ -20,7 +20,7 @@
 - jQuery 3.6, jQuery-ui 1.12.1
 
 ### Hardware System
-- AWS EC2 t2.mini, 2GB Memory, 16GB HDD, Amazon Linux 2
+- AWS EC2 t2.small, 2GB Memory, 16GB HDD, Amazon Linux 2
 
 ### API 접속 Key 
 - Weather API key (https://openweathermap.org/api)
