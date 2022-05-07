@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import my_util.general_util as gu
+import my_util.advanced_util as au
 from my_util.weather import get_weather
 
 aclsf_bp = Blueprint('aclsf_bp', __name__)
@@ -156,7 +157,8 @@ def image():
         f_img.save(file_img)
         current_app.logger.debug(f"{f_img.filename}, {file_img}")
 
-        img = np.array(Image.open(file_img).resize((224, 224)))
+        #img = np.array(Image.open(file_img).resize((224, 224)))
+        img = au.center_image(Image.open(file_img), return_format='Array')
         yhat = resnet.predict(img.reshape(-1, 224, 224, 3))
         label = decode_predictions(yhat)
         label = label[0][0]

@@ -1,5 +1,5 @@
 ## Web for DataAnalysis & AI Application
-- http://13.124.55.164:5000
+- http://3.36.223.111:5000
 
 ### Application
 - 지역 분석, 카토그램, 크롤링, 워드클라우드
