@@ -110,10 +110,8 @@ $ git config --global user.name "본인 이름"
 $ git config --global user.email 본인 이메일
     # github를 사용하기 위해서는 토큰을 생성한 후, 패스워드 입력할 때 입력해야 함
 $ git clone https://github.com/ckiekim/Amazon_EC2_Flask_Web.git web
-$ cd web
-$ mkdir log                                                 # logging.json upload
-$ cd db                                                     # mysql.json upload
-$ python db_init.py
+$ cd web/db                                                 # mysql.json upload
+$ python db_init.py                                         # table 및 초기데이터 생성
 $ cd ../static
 $ mkdir clus_pca_data img keys model movies upload          # img, keys, movies data upload
 $ cd data

@@ -9,7 +9,7 @@ seoul_api_key.txt
 clova_key.json
 papago_key.json
 fontawesome-free-5.15.1-web/
-log/
+log/app.*
 img/
 upload/
 chromedriver.exe
