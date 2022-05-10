@@ -37,8 +37,11 @@ def book():
     return render_template('crawling/book.html', menu=menu, weather=get_weather(),
                             book_list=book_list)
 
-@crawl_bp.route('/youtube')
+@crawl_bp.route('/youtube', methods=['GET', 'POST'])
 def youtube():
-    youtube_list = cu.youtube()
-    return render_template('crawling/youtube.html', menu=menu, weather=get_weather(),
-                            youtube_list=youtube_list)
+    if request.method == 'GET':
+        return render_template('crawling/spinner.html', menu=menu, weather=get_weather())
+    else:
+        youtube_list = cu.youtube()
+        return render_template('crawling/youtube.html', menu=menu, weather=get_weather(),
+                                youtube_list=youtube_list)
