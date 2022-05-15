@@ -36,6 +36,7 @@ $ sudo vi /etc/my.cnf.d/server.cnf
     character-set-server=utf8
     collation-server=utf8_unicode_ci
     skip-character-set-client-handshake
+    default-time-zone='+9:00'
 $ sudo systemctl start mariadb
 $ sudo systemctl enable mariadb
 $ sudo systemctl status mariadb
