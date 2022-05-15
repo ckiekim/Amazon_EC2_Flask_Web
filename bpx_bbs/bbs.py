@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, session
-from flask import current_app, redirect, url_for, flash
-from datetime import date
-import logging, math
+from flask import current_app, redirect, url_for, flash, make_response
+from datetime import date, datetime
+import os, math, random
 import db.db_module as dm
 from my_util.weather import get_weather
 
@@ -99,3 +99,31 @@ def delete(uid, bid):
 def deleteConfirm(bid):
     dm.delete_bbs(bid)
     return redirect(url_for('bbs_bp.list', page=session['current_page']))
+
+def gen_rnd_filename():
+    filename_prefix = datetime.now().strftime('%Y%m%d%H%M%S')
+    return '%s%s' % (filename_prefix, str(random.randrange(1000, 10000)))
+
+@bbs_bp.route('/ckupload', methods=['POST','OPTIONS'])
+def ckupload():
+    error = ''
+    url = ''
+    callback = request.args.get("CKEditorFuncNum")
+    if request.method == 'POST' and 'upload' in request.files:
+        fileobj = request.files['upload']
+        fname, fext = os.path.splitext(fileobj.filename)
+        rnd_name = '%s%s' % (gen_rnd_filename(), fext)
+        if not os.path.exists(os.path.join(current_app.root_path, 'static/upload')):
+            os.makedirs(os.path.join(current_app.root_path, 'static/upload'))
+        filepath = os.path.join(current_app.static_folder, 'upload', rnd_name)
+        fileobj.save(filepath)
+        url = url_for('static', filename='%s/%s' % ('upload', rnd_name))
+    else:
+        error = 'post error'
+
+    res = """<script type="text/javascript"> 
+             window.parent.CKEDITOR.tools.callFunction(%s, '%s', '%s');
+             </script>""" % (callback, url, error)
+    response = make_response(res)
+    response.headers["Content-Type"] = "text/html"
+    return response

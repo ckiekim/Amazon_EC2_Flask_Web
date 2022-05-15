@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block additional_head %}
-    <script src="https://cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
 {% endblock %}
 {% block weather %} {{ weather|safe() }} {% endblock %}
 {% block subtitle %}
@@ -35,6 +35,10 @@
 {% endblock %}
 {% block additional_body %}
     <script>
-        CKEDITOR.replace('content');
-    </script>
+        CKEDITOR.replace('content', {
+            filebrowserImageUploadUrl: '/bbs/ckupload',
+            filebrowserUploadMethod: 'form',
+            height:400, width:800,
+        });
+    </script>    
 {% endblock %}

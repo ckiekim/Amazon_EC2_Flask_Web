@@ -28,7 +28,7 @@
         <div class="col-12"><hr></div>
         <div class="col-12">
             {% autoescape false %}
-                {{row[4]}}       <!-- content -->
+                {{row[4]|safe()}}       <!-- content -->
             {% endautoescape %}
         </div>
 
