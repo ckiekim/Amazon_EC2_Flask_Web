@@ -37,10 +37,17 @@ $ sudo vi /etc/my.cnf.d/server.cnf
     collation-server=utf8_unicode_ci
     skip-character-set-client-handshake
     default-time-zone='+9:00'
+$ sudo vi /etc/my.cnf.d/client.cnf
+    [client]
+    default-character-set=utf8mb4
+$ sudo vi /etc/my.cnf.d/mysql-clients.cnf
+    [mysql]
+    default-character-set=utf8mb4
 $ sudo systemctl start mariadb
 $ sudo systemctl enable mariadb
 $ sudo systemctl status mariadb
 $ mysql -u root -p                  # 최초 접속시에는 Enter가 패스워드
+    MairaDB [(none)]> create database ckdb;
     MairaDB [(none)]> use mysql;
     MariaDB [mysql]> select host, user, password from user;
     MariaDB [mysql]> update user set password=password('새로운 비밀번호') where user='root';
@@ -50,9 +57,7 @@ $ mysql -u root -p                  # 최초 접속시에는 Enter가 패스워�
     MariaDB [mysql]> grant all privileges on *.* to '사용자'@'#';
     MariaDB [mysql]> create user '사용자'@'localhost' identified by '비밀번호';
     MariaDB [mysql]> grant all privileges on *.* to '사용자'@'localhost';
-    MariaDB [mysql]> flush privileges;
-$ mysql -u 사용자 -p
-    MairaDB [(none)]> create database ckdb;
+    MariaDB [mysql]> flush privileges;    
 </pre>
 
 #### 2. Anaconda 설치
@@ -112,6 +117,7 @@ $ git config --global user.email 본인 이메일
     # github를 사용하기 위해서는 토큰을 생성한 후, 패스워드 입력할 때 입력해야 함
 $ git clone https://github.com/ckiekim/Amazon_EC2_Flask_Web.git web
 $ cd web/db                                                 # mysql.json upload
+    # mysql.json에 "charset": "utf8mb4" 추가할 것
 $ python db_init.py                                         # table 및 초기데이터 생성
 $ cd ../static
 $ mkdir clus_pca_data img keys model movies upload          # img, keys, movies data upload
