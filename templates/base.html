@@ -19,7 +19,7 @@
     {% endwith %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
         <!-- Brand/logo -->
         <a class="navbar-brand" style="margin-left:50px;margin-right:100px;" href="#">
             <img src="{{url_for('static', filename='img/ck.png')}}" alt="Logo" style="height:45px;">
@@ -78,7 +78,7 @@
     </nav>
 
     <div class="container">
-        <div class="row mt-3 mb-5">
+        <div class="row mb-5" style="margin-top:88;">
             <div class="col-2">
                 <ul class="nav flex-column nav-pills">
                     <li class="nav-item dropdown">
