@@ -15,6 +15,7 @@ from bpa_nat_lang.nl import nl_bp
 from bpb_sentiment.senti import senti_bp
 from bpx_bbs.bbs import bbs_bp
 from bpz_user.user import user_bp
+from konlpy.tag import Okt
 
 app = Flask(__name__)
 app.secret_key = 'qwert12345'   # session, flash 사용하기 위해 설정
@@ -37,6 +38,7 @@ app.register_blueprint(user_bp, url_prefix='/user')
 with open('./log/logging.json', 'r') as file:
     config = json.load(file)
 dictConfig(config)
+okt = Okt()
 
 @app.route('/')
 def index():

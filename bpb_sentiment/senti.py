@@ -85,7 +85,8 @@ def naver():
  
         test_data = []
         review = re.sub("[^ㄱ-ㅎㅏ-ㅣ가-힣 ]", "", org_review)
-        okt = Okt()
+        global okt
+        #okt = Okt()
         stopwords = ['의','가','이','은','들','는','좀','잘','걍','과','도','를','으로','자','에','와','한','하다','을']
         morphs = okt.morphs(review, stem=True) # 토큰화
         temp_X = ' '.join([word for word in morphs if not word in stopwords]) # 불용어 제거

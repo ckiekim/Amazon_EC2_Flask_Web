@@ -82,7 +82,8 @@ def emotion():
         tr_text_list = result['translated_text'][0]
         tr_text = '\n'.join([tmp_text for tmp_text in tr_text_list])
 
-        okt = Okt()
+        global okt
+        #okt = Okt()
         stopwords = ['의','가','이','은','들','는','좀','잘','걍','과','도','를','으로','자','에','와','한','하다','을']
         if lang == 'kr':
             review = re.sub("[^ㄱ-ㅎㅏ-ㅣ가-힣 ]", "", text)

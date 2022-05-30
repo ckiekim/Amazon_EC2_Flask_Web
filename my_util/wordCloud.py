@@ -32,7 +32,8 @@ def engCloud(text, stop_words, mask_file, img_file, max_words=1000):
 def hanCloud(text, stop_words, mask_file, img_file):
     mpl.rc('font', family='Malgun Gothic')
     mpl.rc('axes', unicode_minus=False)
-    okt = Okt()
+    global okt
+    #okt = Okt()
     tokens = okt.nouns(text)
     new_text = []
     for token in tokens:
