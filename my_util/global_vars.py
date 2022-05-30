@@ -1,3 +1,3 @@
-from konlpy import Okt
+from konlpy.tag import Okt
 
 okt = Okt()
