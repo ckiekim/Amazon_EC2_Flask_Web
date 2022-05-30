@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, session, g
 from flask import current_app, redirect, url_for
 from sklearn.datasets import load_digits
+from tensorflow.keras.datasets import fashion_mnist
+from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.resnet50 import ResNet50, decode_predictions
 from PIL import Image, ImageDraw, ImageFont
 import os, joblib
@@ -20,6 +22,7 @@ menu = {'ho':0, 'bb':0, 'us':0, 'li':0,
 
 digits_max_index = 445
 mnist_max_index = 10487
+fashion_mnist_max_index = 9995
 news_max_index = 4438
 max_image_size = 2048
 max_image_len = 2 ** 21
@@ -109,10 +112,40 @@ def mnist():
             plt.savefig(img_file)
         mtime = int(os.stat(img_file).st_mtime)
 
-        result_dict = {'index':index_list, 'label':label_list, 'pred_sv':pred_sv,}
+        result_dict = {'index':index_list, 'label':label_list, 'pred_sv':pred_sv}
         
         return render_template('advanced/mnist_res.html', menu=menu, mtime=mtime,
                                 result=result_dict, weather=get_weather())
+
+@aclsf_bp.route('/fmnist', methods=['GET', 'POST'])
+def fmnist():
+    if request.method == 'GET':
+        return render_template('advanced/fashion_mnist.html', menu=menu, weather=get_weather())
+    else:
+        index = gu.get_index(request.form['index'], fashion_mnist_max_index)
+        index_list = list(range(index, index+5))
+        (_, _), (X_test, y_test) = fashion_mnist.load_data()
+        test_data = X_test[index:index+5]
+        test_data = test_data.reshape(-1, 28, 28, 1) / 255.
+        model = load_model('static/model/fashion_mnist_cnn.h5')
+        pred = model.predict(test_data)
+        result = np.argmax(pred, axis=1)
+
+        img_file_wo_ext = os.path.join(current_app.root_path, 'static/img/fashion')
+        for k, i in enumerate(index_list):
+            plt.figure(figsize=(2,2))
+            plt.xticks([]); plt.yticks([])
+            img_file = img_file_wo_ext + str(k+1) + '.png'
+            plt.imshow(X_test[i], cmap=plt.cm.binary, interpolation='nearest')
+            plt.savefig(img_file)
+        mtime = int(os.stat(img_file).st_mtime)
+
+        class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
+               'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+        result_dict = {'index':index_list, 'label':y_test[index:index+5], 'pred_cnn':result}
+        return render_template('advanced/fashion_mnist_res.html', menu=menu, mtime=mtime,
+                                result=result_dict, cn=class_names, weather=get_weather())
+
 
 @aclsf_bp.route('/news', methods=['GET', 'POST'])
 def news():
