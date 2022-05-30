@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
 from PIL import Image
 import nltk, re, random
-from konlpy.tag import Okt
+#from konlpy.tag import Okt
+from my_util.global_vars import okt
 
 palettes = ['spring', 'summer', 'seismic', 'rainbow', 'gnuplot', 'gray']
 
@@ -32,7 +33,6 @@ def engCloud(text, stop_words, mask_file, img_file, max_words=1000):
 def hanCloud(text, stop_words, mask_file, img_file):
     mpl.rc('font', family='Malgun Gothic')
     mpl.rc('axes', unicode_minus=False)
-    global okt
     #okt = Okt()
     tokens = okt.nouns(text)
     new_text = []

@@ -2,7 +2,8 @@ from flask import Blueprint, render_template, request, session
 from flask import current_app, redirect, url_for
 import os, json, requests, re, joblib
 from urllib.parse import quote
-from konlpy.tag import Okt
+#from konlpy.tag import Okt
+from my_util.global_vars import okt
 from my_util.weather import get_weather
 
 nl_bp = Blueprint('nl_bp', __name__)
@@ -82,7 +83,6 @@ def emotion():
         tr_text_list = result['translated_text'][0]
         tr_text = '\n'.join([tmp_text for tmp_text in tr_text_list])
 
-        global okt
         #okt = Okt()
         stopwords = ['의','가','이','은','들','는','좀','잘','걍','과','도','를','으로','자','에','와','한','하다','을']
         if lang == 'kr':

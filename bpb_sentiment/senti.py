@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, session, g
 from flask import current_app, redirect, url_for
 from sklearn.datasets import load_digits
-from konlpy.tag import Okt
+#from konlpy.tag import Okt
+from my_util.global_vars import okt
 import os, re, joblib
 import logging
 import numpy as np
@@ -85,7 +86,6 @@ def naver():
  
         test_data = []
         review = re.sub("[^ㄱ-ㅎㅏ-ㅣ가-힣 ]", "", org_review)
-        global okt
         #okt = Okt()
         stopwords = ['의','가','이','은','들','는','좀','잘','걍','과','도','를','으로','자','에','와','한','하다','을']
         morphs = okt.morphs(review, stem=True) # 토큰화
