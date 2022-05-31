@@ -136,7 +136,7 @@ def shopping():
         pred = '긍정' if score > 0.5 else '부정'
         score = score if score > 0.5 else 1-score
         result_dict = {'label':label, 'score':round(score*100,2), 'pred':pred}
-        return render_template('sentiment/shopping.html', menu=menu, weather=get_weather(),
+        return render_template('sentiment/shopping_res.html', menu=menu, weather=get_weather(),
                                 res=result_dict, review=org_review)
 
 @senti_bp.route('/imdb_lexicon', methods=['GET', 'POST'])
