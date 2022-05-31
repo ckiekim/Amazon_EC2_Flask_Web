@@ -11,6 +11,9 @@ import matplotlib.pyplot as plt
 import my_util.general_util as gu
 from my_util.weather import get_weather
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.models import load_model
 
 senti_bp = Blueprint('senti_bp', __name__)
 menu = {'ho':0, 'bb':0, 'us':0, 'li':0,
@@ -20,6 +23,7 @@ menu = {'ho':0, 'bb':0, 'us':0, 'li':0,
 spam_max_index = 1292
 imdb_max_index = 6249
 naver_max_index = 48994
+shopping_max_index = 39981
 imdb_lexicon_max_index = 24999
 
 @senti_bp.route('/spam', methods=['GET', 'POST'])
@@ -85,7 +89,7 @@ def naver():
             label = '직접 확인'
  
         test_data = []
-        review = re.sub("[^ㄱ-ㅎㅏ-ㅣ가-힣 ]", "", org_review)
+        review = re.sub('[^ㄱ-ㅎㅏ-ㅣ가-힣 ]', '', org_review)
         #okt = Okt()
         stopwords = ['의','가','이','은','들','는','좀','잘','걍','과','도','를','으로','자','에','와','한','하다','을']
         morphs = okt.morphs(review, stem=True) # 토큰화
@@ -104,6 +108,36 @@ def naver():
                                       'pred_tl':pred_tl, 'pred_tn':pred_tn}
         return render_template('sentiment/naver_res.html', menu=menu, review=org_review,
                                 res=result_dict, weather=get_weather())
+
+@senti_bp.route('/shopping', methods=['GET', 'POST'])
+def shopping():
+    if request.method == 'GET':
+        return render_template('sentiment/shopping.html', menu=menu, weather=get_weather())
+    else:
+        if request.form['option'] == 'index':
+            index = gu.get_index(request.form['index'], shopping_max_index)
+            df = pd.read_csv('static/data/shopping_test.csv')
+            org_review = df.reviews.values[index]
+            label = '긍정' if df.label.values[index] > 0.5 else '부정'
+        else:
+            org_review = request.form['review']
+            label = '직접 확인'
+        stopwords = ['의','가','이','은','들','는','좀','잘','걍','과','도','를','으로','자','에','와','한','하다','을','ㅋㅋ','ㅠㅠ','ㅎㅎ']
+        t = joblib.load('static/model/shopping_tokenizer.pkl')
+        max_len = 60
+        model = load_model('static/model/shopping_lstm.h5')
+        
+        review = re.sub('[^ㄱ-ㅎㅏ-ㅣ가-힣 ]', '', org_review)
+        morphs = okt.morphs(review, stem=True)
+        morphs = [word for word in morphs if word not in stopwords]
+        encoded = t.texts_to_sequences([morphs])
+        padded = pad_sequences(encoded, maxlen=max_len)
+        score = float(model.predict(padded))
+        pred = '긍정' if score > 0.5 else '부정'
+        score = score if score > 0.5 else 1-score
+        result_dict = {'label':label, 'score':round(score*100,2), 'pred':pred}
+        return render_template('sentiment/shopping.html', menu=menu, weather=get_weather(),
+                                res=result_dict, review=org_review)
 
 @senti_bp.route('/imdb_lexicon', methods=['GET', 'POST'])
 def imdb_lexicon():
