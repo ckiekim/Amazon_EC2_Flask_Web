@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request, g
+from flask import Flask, render_template, session, request, send_from_directory
 from my_util.weather import get_weather
 from logging.config import dictConfig
 import json, logging
@@ -16,7 +16,7 @@ from bpb_sentiment.senti import senti_bp
 from bpx_bbs.bbs import bbs_bp
 from bpz_user.user import user_bp
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 app.secret_key = 'qwert12345'   # session, flash 사용하기 위해 설정
 app.config['SESSION_COOKIE_PATH'] = '/'
  
@@ -55,6 +55,11 @@ def index():
         sess_uid, sess_uname = None, None
     logging.debug(f"uid:{sess_uid}, uname:{sess_uname}") '''
     return render_template('index.html', menu=menu, weather=get_weather())
+
+@app.route('/robots.txt')
+@app.route('/sitemap.xml')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
