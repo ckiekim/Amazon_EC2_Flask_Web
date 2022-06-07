@@ -64,7 +64,7 @@ def mail():
             'se':0, 'cg':0, 'cr':0, 'wc':0, 'rs':0,
             'cf':0, 'ac':0, 're':0, 'cu':0, 'nl':0, 'st':0}
     if request.method == 'GET':
-        return render_template('mail.html', menu=menu)
+        return render_template('mail.html', menu=menu, weather=get_weather())
     else:
         subject = request.form['subject']
         addr = request.form['addr']
