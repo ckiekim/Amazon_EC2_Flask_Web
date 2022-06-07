@@ -5,9 +5,9 @@ import db.db_module as dm
 from my_util.weather import get_weather
 
 user_bp = Blueprint('user_bp', __name__)
-menu = {'ho':0, 'bb':0, 'us':1, 'li':0, 
+menu = {'ho':0, 'bb':0, 'ma':0, 'us':1, 'li':0, 
         'se':0, 'cg':0, 'cr':0, 'wc':0, 'rs':0,
-        'cf':0, 'ac':0, 're':0, 'cu':0, 'nl':0}
+        'cf':0, 'ac':0, 're':0, 'cu':0, 'nl':0, 'st':0}
 
 @user_bp.route('/list/<int:page>', methods=['GET'])
 def list(page):

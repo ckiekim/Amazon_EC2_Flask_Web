@@ -1,7 +1,9 @@
-from flask import Flask, render_template, session, request, send_from_directory
+from flask import Flask, render_template, session, request
+from flask import redirect, current_app, send_from_directory
 from my_util.weather import get_weather
+from my_util.sendmail import sendmail
 from logging.config import dictConfig
-import json, logging
+import os, json, logging
 from bp1_seoul.seoul import seoul_bp
 from bp2_cartogram.carto import carto_bp
 from bp3_crawling.crawl import crawl_bp
@@ -40,7 +42,7 @@ dictConfig(config)
 
 @app.route('/')
 def index():
-    menu = {'ho':1, 'bb':0, 'us':0, 'li':0,
+    menu = {'ho':1, 'bb':0, 'ma':0, 'us':0, 'li':0,
             'se':0, 'cg':0, 'cr':0, 'wc':0, 'rs':0,
             'cf':0, 'ac':0, 're':0, 'cu':0, 'nl':0, 'st':0}
     client_addr = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
@@ -55,6 +57,24 @@ def index():
         sess_uid, sess_uname = None, None
     logging.debug(f"uid:{sess_uid}, uname:{sess_uname}") '''
     return render_template('index.html', menu=menu, weather=get_weather())
+
+@app.route('/mail', methods=['GET', 'POST'])
+def mail():
+    menu = {'ho':0, 'bb':0, 'ma':1, 'us':0, 'li':0,
+            'se':0, 'cg':0, 'cr':0, 'wc':0, 'rs':0,
+            'cf':0, 'ac':0, 're':0, 'cu':0, 'nl':0, 'st':0}
+    if request.method == 'GET':
+        return render_template('mail.html', menu=menu)
+    else:
+        subject = request.form['subject']
+        addr = request.form['addr']
+        content = request.form['content']
+        files = request.files.getlist('fields[]')
+        for file in files:
+            file_up = os.path.join(current_app.root_path, 'static/upload/') + file.filename
+            file.save(file_up)
+        sendmail(subject, addr, content, files)
+        return redirect('/')
 
 @app.route('/robots.txt')
 @app.route('/sitemap.xml')

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <style>
+        .upload-input-group {
+            margin-bottom: 10px;
+        }
+        .input-group>.custom-select:not(:last-child), .input-group>.form-control:not(:last-child) {
+            height: 45px;
+        }
+    </style>
+{% endblock %}
+{% block subtitle %}
+    <strong>메일 보내기</strong> (to: 관리자)
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <form action="/mail" method="post" enctype="multipart/form-data">
+                <table class="table table-borderless">
+                    <tr>
+                        <td><label for="subject">제목</label></td>
+                        <td><input type="text" class="form-control" id="subject" name="subject" placeholder="제목"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="addr">회신주소</label></td>
+                        <td><input type="email" class="form-control" id="addr" name="addr" placeholder="회신받을 이메일"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="content">내용</label></td>
+                        <td><textarea name="content" id="content" cols="84" rows="10"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>파일 첨부</td>
+                        <td>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="control-group" id="fields">
+                                        <div class="controls">
+                                            <div class="entry input-group upload-input-group">
+                                                <input class="form-control" type="file" name="fields[]" multiple="multiple">
+                                                <button class="btn btn-upload btn-success btn-add" type="button">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <button type="submit" class="btn btn-primary mr-2">실행</button>
+                            <button type="reset" class="btn btn-secondary">취소</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="col-1"></div>
+    </div>
+{% endblock %}
+{% block additional_body %}
+    <script>
+        $(function () {
+            $(document).on('click', '.btn-add', function (e) {
+                e.preventDefault();
+    
+                var controlForm = $('.controls:first'),
+                    currentEntry = $(this).parents('.entry:first'),
+                    newEntry = $(currentEntry.clone()).appendTo(controlForm);
+    
+                newEntry.find('input').val('');
+                controlForm.find('.entry:not(:last) .btn-add')
+                    .removeClass('btn-add').addClass('btn-remove')
+                    .removeClass('btn-success').addClass('btn-danger')
+                    .html('<span class="fa fa-trash"></span>');
+            }).on('click', '.btn-remove', function (e) {
+                $(this).parents('.entry:first').remove();
+                e.preventDefault();
+                return false;
+            });
+        });
+    </script>
+{% endblock %}

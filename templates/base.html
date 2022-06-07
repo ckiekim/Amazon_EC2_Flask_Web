@@ -40,6 +40,12 @@
                 </a>
             </li>
             <li class="nav-item mr-3">
+                <a class="nav-link {% if menu.ma %}active{% endif %}" 
+                   href="{% if menu.ma %}#{% else %}/mail{% endif %}">
+                    <i class="fa fa-envelope"></i> 관리자에게
+                </a>
+            </li>
+            <li class="nav-item mr-3">
                 <a class="nav-link {% if menu.us %}active{% endif %}" 
                    href="{% if menu.us %}#{% else %}/user/list/1{% endif %}">
                    <i class="fas fa-user-friends"></i> 사용자
