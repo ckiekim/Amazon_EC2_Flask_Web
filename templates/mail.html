@@ -9,6 +9,7 @@
         }
     </style>
 {% endblock %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
 {% block subtitle %}
     <strong>메일 보내기</strong> (to: 관리자)
 {% endblock %}
