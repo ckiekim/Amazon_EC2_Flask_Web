@@ -1,241 +1,282 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <urlset
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+      xmlns:xhtml="http://www.w3.org/1999/xhtml"
+      xsi:schemaLocation="
+            http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+<!-- created with PRO Sitemap Service https://pro-sitemaps.com -->
 
-
-<url>
-  <loc>http://3.36.223.111:5000/</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/user/login</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/seoul/park</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/seoul/park_gu/area</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/seoul/crime/crime</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/seoul/cctv/graph</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/cartogram/pop/crisis_area</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/cartogram/coffee</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/crawling/food</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/crawling/music</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/crawling/music_jquery</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/crawling/book</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/crawling/youtube</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/wordcloud/han/gift</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/wordcloud/eng/Alice</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/wordcloud/eng/Starwars</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/wordcloud/text</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/recommendation/book</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/recommendation/movie</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/recommendation/ml_latest</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/classification/titanic</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/classification/pima</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/classification/cancer</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/classification/iris</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/classification/wine</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/advanced/digits</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/advanced/mnist</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/advanced/fmnist</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/advanced/image</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/advanced/news</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/advanced/face</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/advanced/ocr</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/advanced/detect</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/regression/diabetes</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/regression/iris</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/regression/boston</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/cluster/cluster</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/sentiment/spam</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/sentiment/imdb</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/sentiment/naver</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/sentiment/shopping</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/sentiment/imdb_lexicon</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/nat_lang/translate</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/nat_lang/tts</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/nat_lang/emotion</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://3.36.223.111:5000/user/register</loc>
-  <lastmod>2022-06-05T04:47:01+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-
+  <url>
+       <loc>http://3.36.223.111:5000/</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>1.0000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/mail</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.9500</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/seoul/park</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/seoul/park_gu/area</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/seoul/crime/crime</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/seoul/cctv/graph</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/cartogram/pop/crisis_area</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/cartogram/coffee</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/crawling/food</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/crawling/music</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/crawling/music_jquery</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/crawling/book</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/crawling/youtube</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/wordcloud/han/gift</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/wordcloud/eng/Alice</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/wordcloud/eng/Starwars</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/wordcloud/text</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/recommendation/book</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/recommendation/movie</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/recommendation/ml_latest</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/classification/titanic</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/classification/pima</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/classification/cancer</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/classification/iris</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/classification/wine</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/advanced/digits</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/advanced/mnist</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/advanced/fmnist</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/advanced/image</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/advanced/news</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/advanced/face</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/advanced/ocr</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/advanced/detect</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/regression/diabetes</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/regression/iris</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/regression/boston</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/cluster/cluster</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/sentiment/spam</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/sentiment/imdb</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/sentiment/naver</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/sentiment/shopping</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/sentiment/imdb_lexicon</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/nat_lang/translate</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/nat_lang/tts</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>http://3.36.223.111:5000/nat_lang/emotion</loc>
+       <lastmod>2022-06-07T04:57:16+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
 </urlset>
