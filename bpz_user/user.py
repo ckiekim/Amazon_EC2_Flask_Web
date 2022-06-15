@@ -33,16 +33,19 @@ def register():
     if request.method == 'GET':
         return render_template('user/register.html', menu=menu, weather=get_weather())
     else:
-        uid = request.form['uid']
+        uid = request.form['uid'].strip()
         pwd = request.form['pwd']
         pwd2 = request.form['pwd2']
-        uname = request.form['uname']
-        email = request.form['email']
+        uname = request.form['uname'].strip()
+        email = request.form['email'].strip()
         if dm.get_user_info(uid):           # 중복 uid
             flash('중복된 uid 입니다.')
             return redirect(url_for('user_bp.register'))
         elif pwd != pwd2:                   # 패스워드 불일치
             flash('입력한 패스워드가 일치하지 않습니다.')
+            return redirect(url_for('user_bp.register'))
+        elif uid == '' or uname == '' or email == '':
+            flash('필수 입력항목을 입력해야 합니다.')
             return redirect(url_for('user_bp.register'))
         else:
             pwd_sha256 = hashlib.sha256(pwd.encode())
