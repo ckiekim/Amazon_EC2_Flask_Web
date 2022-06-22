@@ -1,7 +1,7 @@
 import json
 import mysql.connector as mc
 
-with open('./db/mysql.json') as fp:
+with open('mysql.json') as fp:
     config_str = fp.read()
 config = json.loads(config_str)
 
