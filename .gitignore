@@ -24,6 +24,7 @@ keys/
 mysql.json
 movies/
 movie_cos_sim.pkl
+test.py
 
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
