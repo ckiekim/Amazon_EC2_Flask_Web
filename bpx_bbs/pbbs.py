@@ -113,5 +113,5 @@ def delete(pid):
 
 @pbbs_bp.route('/deleteConfirm/<int:pid>', methods=['GET'])
 def deleteConfirm(pid):
-    pm.delete_bbs(pid)
-    return redirect(url_for('bbs_bp.list', page=session['current_project_page']))
+    pm.delete_pbbs(pid)
+    return redirect(url_for('pbbs_bp.list', page=session['current_project_page']))
