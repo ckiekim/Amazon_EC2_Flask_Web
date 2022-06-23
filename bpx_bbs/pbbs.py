@@ -82,7 +82,7 @@ def register():
         f_mp4 = request.files['mp4']
         if f_mp4:
             fname = modify_filename(f_mp4.filename)
-            f_mp4.save(f'{upload_path}/{f_mp4.filename}')
+            f_mp4.save(f'{upload_path}/{fname}')
             files.append(fname)
         file3 = request.files['file3']
         if file3:
@@ -94,7 +94,7 @@ def register():
             fname = modify_filename(file4.filename)
             file4.save(f'{upload_path}/{fname}')
             files.append(fname)
-        #print(files)
+        print(files)
         params = (title,content,cn,co,json.dumps(authors),term,json.dumps(files),json.dumps(ht_list))
         pm.insert_pbbs(params)
         return redirect(url_for('pbbs_bp.list', page=1))
