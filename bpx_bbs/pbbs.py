@@ -34,6 +34,9 @@ def view(pid):
     return render_template('pbbs/view.html', menu=menu, weather=get_weather(),
                             row=row, page=session['current_project_page'])
 
+def modify_filename(name):
+    return name.replace(' ','_')
+
 @pbbs_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
@@ -73,20 +76,24 @@ def register():
         upload_path = os.path.join(current_app.root_path, 'static/project_upload')
         f_pdf = request.files['pdf']
         if f_pdf:
-            f_pdf.save(f'{upload_path}/{f_pdf.filename}')
-            files.append(f_pdf.filename)
+            fname = modify_filename(f_pdf.filename)
+            f_pdf.save(f'{upload_path}/{fname}')
+            files.append(fname)
         f_mp4 = request.files['mp4']
         if f_mp4:
+            fname = modify_filename(f_mp4.filename)
             f_mp4.save(f'{upload_path}/{f_mp4.filename}')
-            files.append(f_mp4.filename)
+            files.append(fname)
         file3 = request.files['file3']
         if file3:
-            file3.save(f'{upload_path}/{file3.filename}')
-            files.append(file3.filename)
+            fname = modify_filename(file3.filename)
+            file3.save(f'{upload_path}/{fname}')
+            files.append(fname)
         file4 = request.files['file4']
         if file4:
-            file4.save(f'{upload_path}/{file4.filename}')
-            files.append(file4.filename)
+            fname = modify_filename(file4.filename)
+            file4.save(f'{upload_path}/{fname}')
+            files.append(fname)
         #print(files)
         params = (title,content,cn,co,json.dumps(authors),term,json.dumps(files),json.dumps(ht_list))
         pm.insert_pbbs(params)
