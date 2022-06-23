@@ -18,7 +18,7 @@ sql = '''
         co VARCHAR(40) NOT NULL,
         authors VARCHAR(400) NOT NULL,
         term VARCHAR(8),
-        files VARCHAR(200),
+        files VARCHAR(400),
         vc INT DEFAULT 0,
         ht VARCHAR(200),
         isDeleted INT DEFAULT 0
