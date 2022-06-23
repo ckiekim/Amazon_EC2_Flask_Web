@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <style>
+        th, td {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>프로젝트 게시판 목록</strong>
+    <span style="font-size: 0.6em;">
+        <a href="/pbbs/register" class="ml-5"><i class="far fa-file-alt"></i> 등록하기</a>
+    </span>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-condensed table-hover" style="margin-bottom: 80px;">
+                <tr class="table-secondary d-flex">
+                    <th class="col-1">번호</th>
+                    <th class="col-6">제목</th>
+                    <th class="col-2">기관</th>
+                    <th class="col-1">인원수</th>
+                    <th class="col-1">기간</th>
+                    <th class="col-1">조회수</th>
+                </tr>
+                {% for row in plist %}
+                    <tr class="d-flex">
+                        <td class="col-1">{{row.pid}}</td>
+                        <td class="col-6"><a href="/pbbs/view/{{row.pid}}"><strong>{{row.title}}</strong></a></td>
+                        <td class="col-2">{{row.org}}</td>
+                        <td class="col-1">{{row.numAuthor}}</td>
+                        <td class="col-1">{{row.term}}</td>
+                        <td class="col-1">{{row.viewCount}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link active" href="{% if page_no>10 %}/pbbs/list/{{((page_no-1)/10 | round)*10}}{% else %}#{% endif %}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span></a>
+                </li>
+                {% for page in range(start_page, end_page+1) %}
+                    {% if page==page_no %}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">
+                                {{page}}<span class="sr-only">(current)</span>
+                            </span>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="/pbbs/list/{{page}}">{{page}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item">
+                    <a class="page-link" href="{% if end_page<total_page %}/pbbs/list/{{((page_no/10+0.9)|round)*10+1}}{% else %}#{% endif %}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span></a>
+                </li>
+            </ul>         
+        </div>
+    </div>
+{% endblock %}

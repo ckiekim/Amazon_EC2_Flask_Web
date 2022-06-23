@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <style>
+        th, td {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>프로젝트 상세 조회</strong>
+    <span style="font-size: 0.6em;">
+        <a href="/pbbs/list/{{page}}" class="ml-5""><i class="fas fa-list-ul"></i> 목록</a>
+        <a href="/pbbs/update/{{row.pid}}" class="ml-3"><i class="far fa-edit"></i> 수정</a>  <!-- uid, pid -->
+        <a href="/pbbs/delete/{{row.pid}}" class="ml-3"><i class="fas fa-trash-alt"></i> 삭제</a>
+    </span>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-7">
+            <h4>{{row.title}}</h4>     <!-- title -->
+            <h6>pid: {{row.pid}} | {{row.term}} | 조회: {{row.vc}}</h6>    <!-- pid, term, view count -->
+        </div>
+        <div class="col-5" style="text-align: right;">
+            <h4>{{row.co}}</h4>     <!-- course organization -->
+            <h6>{{row.cn}}</h6>     <!-- course name -->
+        </div>
+        <div class="col-12"><hr></div>
+        <div class="col-2">내용</div>
+        <div class="col-10">
+            {% autoescape false %}
+                {{row.content | safe()}}       <!-- content -->
+            {% endautoescape %}
+        </div>
+        <div class="col-12"><hr></div>
+        <div class="col-2">해쉬태그</div>
+        <div class="col-10">
+            {{',&nbsp;&nbsp;'.join(row.ht) | safe()}}
+        </div>
+        <div class="col-12"><hr></div>
+        <div class="col-2">멤버</div>
+        <div class="col-10">
+            {% for author in row.authors %}
+                {{author.name[:-1]+"○"}} ({{author.email}})<br>
+            {% endfor %}
+        </div>
+        <div class="col-12"><hr></div>
+        <div class="col-2">첨부파일</div>
+        <div class="col-10">
+            {% for file in row.files %}
+                {{file}} <button type="button" class="btn btn-outline-primary btn-sm ml-1 mr-5 mb-2">다운로드</button>
+                {% if loop.index % 2 == 0 %}
+                    <br>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-12"><hr></div>
+    </div>
+{% endblock %}

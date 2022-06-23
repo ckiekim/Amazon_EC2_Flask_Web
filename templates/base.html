@@ -33,12 +33,28 @@
                     <i class="fa fa-home"></i> Home
                 </a>
             </li>
-            <li class="nav-item mr-1">
+            <li class="nav-item dropdown mr-1">
+                <a class="nav-link dropdown-toggle {% if menu.bb %}active{% endif %}" href="#" data-toggle="dropdown">
+                    <i class="far fa-list-alt"></i> 게시판
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/bbs/list/1">자유 게시판</a>
+                    <a class="dropdown-item" href="/pbbs/list/1">프로젝트 게시판</a>
+                    <a class="dropdown-item" href="#">Link 3</a>
+                </div>
+            </li>
+            <!-- <li class="nav-item mr-1">
                 <a class="nav-link {% if menu.bb %}active{% endif %}" 
                    href="{% if menu.bb %}#{% else %}/bbs/list/1{% endif %}">
                     <i class="far fa-list-alt"></i> 자유게시판
                 </a>
             </li>
+            <li class="nav-item mr-1">
+                <a class="nav-link {% if menu.pb %}active{% endif %}" 
+                   href="{% if menu.bb %}#{% else %}/pbbs/list/0{% endif %}">
+                    <i class="far fa-list-alt"></i> 프로젝트
+                </a>
+            </li> -->
             <li class="nav-item mr-1">
                 <a class="nav-link {% if menu.ma %}active{% endif %}" 
                    href="{% if menu.ma %}#{% else %}/mail{% endif %}">
