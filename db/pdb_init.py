@@ -16,11 +16,11 @@ sql = '''
         content VARCHAR(1000),
         cn VARCHAR(100) NOT NULL,
         co VARCHAR(40) NOT NULL,
-        authors VARCHAR(200) NOT NULL,
+        authors VARCHAR(400) NOT NULL,
         term VARCHAR(8),
-        files VARCHAR(100),
+        files VARCHAR(200),
         vc INT DEFAULT 0,
-        ht VARCHAR(100),
+        ht VARCHAR(200),
         isDeleted INT DEFAULT 0
     ) AUTO_INCREMENT=101;
 '''
