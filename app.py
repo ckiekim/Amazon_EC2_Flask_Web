@@ -16,6 +16,7 @@ from bp9_clustering.clus import clus_bp
 from bpa_nat_lang.nl import nl_bp
 from bpb_sentiment.senti import senti_bp
 from bpx_bbs.bbs import bbs_bp
+from bpx_bbs.pbbs import pbbs_bp
 from bpz_user.user import user_bp
 
 app = Flask(__name__, static_folder='static')
@@ -34,6 +35,7 @@ app.register_blueprint(clus_bp, url_prefix='/cluster')
 app.register_blueprint(nl_bp, url_prefix='/nat_lang')
 app.register_blueprint(senti_bp, url_prefix='/sentiment')
 app.register_blueprint(bbs_bp, url_prefix='/bbs')
+app.register_blueprint(pbbs_bp, url_prefix='/pbbs')
 app.register_blueprint(user_bp, url_prefix='/user')
 
 with open('./log/logging.json', 'r') as file:
