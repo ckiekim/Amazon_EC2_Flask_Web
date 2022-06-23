@@ -41,6 +41,7 @@ def modify_filename(name):
 def register():
     if request.method == 'GET':
         if session['uid'] != 'admin':
+            flash('등록 권한이 없습니다.')
             return redirect(url_for('pbbs_bp.list', page=session['current_project_page']))
         return render_template('pbbs/register.html', menu=menu, weather=get_weather(),
                                 page=session['current_project_page'])
@@ -102,23 +103,15 @@ def register():
         pm.insert_pbbs(params)
         return redirect(url_for('pbbs_bp.list', page=session['current_project_page']))
 
-@pbbs_bp.route('/update/<int:pid>', methods=['GET', 'POST'])
-def update(pid):
-    if request.method == 'GET':
-        row = pm.get_pbbs_data(pid)
-        return render_template('pbbs/update.html', menu=menu, weather=get_weather(),
-                                row=row, page=session['current_project_page'])
-    else:
-        
-        return redirect(url_for('pbbs_bp.view', pid=pid))
-
-'''@pbbs_bp.route('/delete/<int:pid>', methods=['GET'])
+@pbbs_bp.route('/delete/<int:pid>', methods=['GET'])
 def delete(pid):
+    if session['uid'] != 'admin':
+        flash('삭제 권한이 없습니다.')
+        return redirect(url_for('pbbs_bp.view', pid=pid))
     return render_template('pbbs/delete.html', menu=menu, weather=get_weather(),
                             pid=pid, page=session['current_project_page'])
 
-@pbbs_bp.route('/deleteConfirm/<int:bid>', methods=['GET'])
-def deleteConfirm(bid):
-    #dm.delete_bbs(bid)
+@pbbs_bp.route('/deleteConfirm/<int:pid>', methods=['GET'])
+def deleteConfirm(pid):
+    pm.delete_bbs(pid)
     return redirect(url_for('bbs_bp.list', page=session['current_project_page']))
- '''
