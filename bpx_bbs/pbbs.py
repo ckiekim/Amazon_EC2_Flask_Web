@@ -30,7 +30,7 @@ def list(page):
 
 @pbbs_bp.route('/view/<int:pid>', methods=['GET'])
 def view(pid):
-    row = pm.get_bbs_data(pid)
+    row = pm.get_pbbs_data(pid)
     return render_template('pbbs/view.html', menu=menu, weather=get_weather(),
                             row=row, page=session['current_project_page'])
 
@@ -89,7 +89,7 @@ def register():
             files.append(file4.filename)
         #print(files)
         params = (title,content,cn,co,json.dumps(authors),term,json.dumps(files),json.dumps(ht_list))
-        pm.insert_bbs(params)
+        pm.insert_pbbs(params)
         return redirect(url_for('pbbs_bp.list', page=1))
 
 ''' @pbbs_bp.route('/update/<int:pid>', methods=['GET', 'POST'])
