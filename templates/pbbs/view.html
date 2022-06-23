@@ -48,7 +48,8 @@
         <div class="col-2">첨부파일</div>
         <div class="col-10">
             {% for file in row.files %}
-                {{file}} <button type="button" class="btn btn-outline-primary btn-sm ml-1 mr-5 mb-2">다운로드</button>
+            {{file}} 
+            <a href="{{url_for('static', filename='project_upload/'+file)}}" download><button type="button" class="btn btn-outline-primary btn-sm ml-1 mr-5 mb-2">다운로드</button></a>
                 {% if loop.index % 2 == 0 %}
                     <br>
                 {% endif %}

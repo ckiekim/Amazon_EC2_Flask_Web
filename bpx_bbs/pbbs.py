@@ -40,12 +40,15 @@ def modify_filename(name):
 @pbbs_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
+        if session['uid'] != 'admin':
+            return redirect(url_for('pbbs_bp.list', page=session['current_project_page']))
         return render_template('pbbs/register.html', menu=menu, weather=get_weather(),
                                 page=session['current_project_page'])
     else:
         title = request.form['title'].strip()
         term = request.form['term'].strip()
         content = request.form['content'].strip()
+        content = content.replace('\r', '')
         content = content.replace('\n', '<br>')
         ht = request.form['ht'].strip()             # hash tag
         ht_list = [tag.strip() for tag in ht.split(',')]
@@ -97,25 +100,19 @@ def register():
         print(files)
         params = (title,content,cn,co,json.dumps(authors),term,json.dumps(files),json.dumps(ht_list))
         pm.insert_pbbs(params)
-        return redirect(url_for('pbbs_bp.list', page=1))
+        return redirect(url_for('pbbs_bp.list', page=session['current_project_page']))
 
-''' @pbbs_bp.route('/update/<int:pid>', methods=['GET', 'POST'])
+@pbbs_bp.route('/update/<int:pid>', methods=['GET', 'POST'])
 def update(pid):
     if request.method == 'GET':
         row = pm.get_pbbs_data(pid)
         return render_template('pbbs/update.html', menu=menu, weather=get_weather(),
                                 row=row, page=session['current_project_page'])
     else:
-        title = request.form['title']
-        content = request.form['content']
-        if len(title) > 100 or len(content) > 1000:
-            flash('제목을 100자 이하로 줄여주세요. ' * (len(title) > 100) + 
-                  '본문을 1000자 이하로 줄여주세요' * (len(content) > 1000))
-            return redirect(f'/bbs/update/{pid}')
-        pm.update_bbs((title, content, pid))
+        
         return redirect(url_for('pbbs_bp.view', pid=pid))
 
-@pbbs_bp.route('/delete/<int:pid>', methods=['GET'])
+'''@pbbs_bp.route('/delete/<int:pid>', methods=['GET'])
 def delete(pid):
     return render_template('pbbs/delete.html', menu=menu, weather=get_weather(),
                             pid=pid, page=session['current_project_page'])

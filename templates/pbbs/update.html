@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>프로젝트 정보 수정</strong> (<small>파일 수정 불가</small>)
+    <span style="font-size: 0.6em;">
+        <a href="/pbbs/list/{{page}}" class="ml-5""><i class="fas fa-list-ul"></i> 목록</a>
+    </span>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <form action="/pbbs/update/{{row.pid}}" method="post">
+                <table class="table table-borderless table-sm">
+                    <tr class="d-flex">
+                        <td class="col-2" style="text-align: center;"><label for="title" class="col-form-label">제목</label></td>
+                        <td colspan="2" class="col-7"><input type="text" name="title" id="title" class="form-control" value="{{row.title}}"></td>
+                        <td class="col-1" style="text-align: right;"><label for="term" class="col-form-label">기간</label></td>
+                        <td class="col-2"><input type="text" name="term" id="term" class="form-control" value="{{row.term}}"></td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-2" style="text-align: center;"><label for="content" class="col-form-label">내용</label></td>
+                        <td colspan="4" class="col-10"><textarea class="form-control" name="content" id="content" rows="5">{{row.content.replace('<br>','\n')}}</textarea></td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-2" style="text-align: center;"><label for="ht" class="col-form-label">해시태그</label></td>
+                        <td colspan="4" class="col-10"><input type="text" name="ht" id="ht" class="form-control" value="{{row.ht}}"></td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-2" style="text-align: center;"><label for="name1" class="col-form-label">멤버</label></td>
+                        <td class="col-1" style="text-align: right;"><label for="name1" class="col-form-label">이름</label></td>
+                        <td class="col-3"><input type="text" name="name1" id="name1" class="form-control" value="{{row.name1}}"></td>
+                        <td class="col-2" style="text-align: right;"><label for="email1" class="col-form-label">이메일</label></td>
+                        <td class="col-4"><input type="email" name="email1" id="email1" class="form-control" value="{{row.email1}}></td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-2"></td>
+                        <td class="col-1" style="text-align: right;"><label for="name2" class="col-form-label">이름</label></td>
+                        <td class="col-3"><input type="text" name="name2" id="name2" class="form-control" value="{{row.name2}}></td>
+                        <td class="col-2" style="text-align: right;"><label for="email2" class="col-form-label">이메일</label></td>
+                        <td class="col-4"><input type="email" name="email2" id="email2" class="form-control" value="{{row.email2}}></td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-2"></td>
+                        <td class="col-1" style="text-align: right;"><label for="name3" class="col-form-label">이름</label></td>
+                        <td class="col-3"><input type="text" name="name3" id="name3" class="form-control" value="{{row.name3}}></td>
+                        <td class="col-2" style="text-align: right;"><label for="email3" class="col-form-label">이메일</label></td>
+                        <td class="col-4"><input type="email" name="email3" id="email3" class="form-control" value="{{row.email3}}></td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-2"></td>
+                        <td colspan="4" class="col-10"><input type="text" name="info" id="info" class="form-control" value="{{row.info}}"></td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-2" style="text-align: center;"><label for="cn" class="col-form-label">과정</label></td>
+                        <td class="col-1" style="text-align: right;"><label for="cn" class="col-form-label">과정명</label></td>
+                        <td class="col-5"><input type="text" name="cn" id="cn" class="form-control" value="{{row.cn}}"></td>
+                        <td class="col-2" style="text-align: right;"><label for="co" class="col-form-label">수행기관</label></td>
+                        <td class="col-2"><input type="text" name="co" id="co" class="form-control" value="{{row.co}}"></td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-2" style="text-align: center;"><label for="pdf" class="col-form-label">첨부파일</label></td>
+                        <td class="col-5" colspan="2">{{row.pdf}}</td>
+                        <td class="col-5" colspan="2">{{row.mp4}}</td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-2"></td>
+                        <td class="col-5" colspan="2">{{row.file3}}</td>
+                        <td class="col-5" colspan="2">{{row.file4}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="text-align: center;">
+                            <input class="btn btn-primary" type="submit" value="제출">
+                            <input class="btn btn-secondary" type="reset" value="취소">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock %}

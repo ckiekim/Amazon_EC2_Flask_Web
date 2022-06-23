@@ -61,3 +61,22 @@ def get_pbbs_counts():
     cur.close()
     conn.close()
     return result[0]
+
+def update_pbbs(params):
+    conn = mc.connect(**config)
+    cur = conn.cursor()
+    sql = """UPDATE pbbs SET title=%s,content=%s,cn=%s,co=%s,authors=%s,term=%s,files=%s,ht=%s
+             WHERE pid=%s"""
+    cur.execute(sql, params)
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def delete_pbbs(pid):
+    conn = mc.connect(**config)
+    cur = conn.cursor()
+    sql = "UPDATE pbbs SET isDeleted=1 WHERE pid=%s;"
+    cur.execute(sql, (pid,))
+    conn.commit()
+    cur.close()
+    conn.close()
