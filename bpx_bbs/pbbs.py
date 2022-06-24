@@ -47,7 +47,7 @@ def register():
                                 page=session['current_project_page'])
     else:
         title = request.form['title'].strip()
-        period = int(request.form['period'].strip())
+        days = int(request.form['days'].strip())
         content = request.form['content'].strip()
         content = content.replace('\r', '')
         content = content.replace('\n', '<br>')
@@ -100,7 +100,7 @@ def register():
             file4.save(f'{upload_path}/{fname}')
             files.append(fname)
         print(files)
-        params = (title,content,cn,co,json.dumps(authors),term,json.dumps(files),json.dumps(ht_list),period)
+        params = (title,content,cn,co,json.dumps(authors),term,json.dumps(files),json.dumps(ht_list),days)
         pm.insert_pbbs(params)
         return redirect(url_for('pbbs_bp.list', page=session['current_project_page']))
 

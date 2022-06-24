@@ -21,7 +21,7 @@ sql = '''
         files VARCHAR(400),
         vc INT DEFAULT 0,
         ht VARCHAR(200),
-        period INT DEFAULT 5,
+        days INT DEFAULT 5,
         isDeleted INT DEFAULT 0
     ) AUTO_INCREMENT=101;
 '''
