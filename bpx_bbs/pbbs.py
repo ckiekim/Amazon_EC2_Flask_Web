@@ -47,12 +47,13 @@ def register():
                                 page=session['current_project_page'])
     else:
         title = request.form['title'].strip()
-        term = request.form['term'].strip()
+        period = int(request.form['period'].strip())
         content = request.form['content'].strip()
         content = content.replace('\r', '')
         content = content.replace('\n', '<br>')
         ht = request.form['ht'].strip()             # hash tag
         ht_list = [tag.strip() for tag in ht.split(',')]
+        term = request.form['term'].strip()
 
         name1 = request.form['name1'].strip()
         email1 = request.form['email1'].strip()
@@ -99,7 +100,7 @@ def register():
             file4.save(f'{upload_path}/{fname}')
             files.append(fname)
         print(files)
-        params = (title,content,cn,co,json.dumps(authors),term,json.dumps(files),json.dumps(ht_list))
+        params = (title,content,cn,co,json.dumps(authors),term,json.dumps(files),json.dumps(ht_list),period)
         pm.insert_pbbs(params)
         return redirect(url_for('pbbs_bp.list', page=session['current_project_page']))
 

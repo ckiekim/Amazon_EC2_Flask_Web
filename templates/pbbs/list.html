@@ -19,19 +19,19 @@
             <table class="table table-condensed table-hover" style="margin-bottom: 80px;">
                 <tr class="table-secondary d-flex">
                     <th class="col-1">번호</th>
-                    <th class="col-6">제목</th>
-                    <th class="col-2">기관</th>
+                    <th class="col-7">제목</th>
+                    <th class="col-1">년월</th>
+                    <th class="col-1">기간(일)</th>
                     <th class="col-1">인원수</th>
-                    <th class="col-1">기간</th>
                     <th class="col-1">조회수</th>
                 </tr>
                 {% for row in plist %}
                     <tr class="d-flex">
                         <td class="col-1">{{row.pid}}</td>
-                        <td class="col-6"><a href="/pbbs/view/{{row.pid}}"><strong>{{row.title}}</strong></a></td>
-                        <td class="col-2">{{row.co}}</td>
-                        <td class="col-1">{{row.na}}</td>
+                        <td class="col-7"><a href="/pbbs/view/{{row.pid}}"><strong>{{row.title}}</strong></a></td>
                         <td class="col-1">{{row.term}}</td>
+                        <td class="col-1">{{row.period}}</td>
+                        <td class="col-1">{{row.na}}</td>
                         <td class="col-1">{{row.vc}}</td>
                     </tr>
                 {% endfor %}
