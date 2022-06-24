@@ -18,7 +18,7 @@ def get_pbbs_list(offset=0):
     results = []
     for row in rows:
         authors = json.loads(row[2])
-        res = {'pid':row[0], 'title':row[1], 'na':len(authors), 'term':row[3], 'vc':row[4], 'co':row[5]}
+        res = {'pid':row[0], 'title':row[1], 'na':len(authors), 'term':row[3], 'vc':row[4], 'days':row[5]}
         results.append(res)
     return results
 
