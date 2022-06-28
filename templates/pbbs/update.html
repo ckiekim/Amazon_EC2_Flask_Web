@@ -30,7 +30,7 @@
                     {% for author in row.authors %}
                     <tr class="d-flex">
                         {% if loop.first %}
-                            <td class="col-2" style="text-align: center;"><label for="{{'name'+string(loop.index)}}" class="col-form-label">멤버</label></td>
+                            <td class="col-2" style="text-align: center;"><label for="{{'name'+(loop.index|string())}}" class="col-form-label">멤버</label></td>
                         {% else %}
                             <td class="col-2"></td>
                         {% endif %}
