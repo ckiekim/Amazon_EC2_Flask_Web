@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>수정하기</strong>
+    <span style="font-size: 0.6em;">
+        <a href="/pbbs/list/{{page}}" class="ml-5""><i class="fas fa-list-ul"></i> 목록</a>
+    </span>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <form action="/pbbs/update/{{row.pid}}" method="post" enctype="multipart/form-data">
+                <table class="table table-borderless table-sm">
+                    <tr class="d-flex">
+                        <td class="col-2" style="text-align: center;"><label for="title" class="col-form-label">제목</label></td>
+                        <td colspan="2" class="col-8"><input type="text" name="title" id="title" class="form-control" value="{{row.title}}"></td>
+                        <td class="col-1" style="text-align: right;"><label for="days" class="col-form-label">기간</label></td>
+                        <td class="col-1"><input type="text" name="days" id="days" class="form-control" value="{{row.days}}"></td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-2" style="text-align: center;"><label for="content" class="col-form-label">내용</label></td>
+                        <td colspan="4" class="col-10"><textarea class="form-control" name="content" id="content" rows="5">{{row.content}}</textarea></td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-2" style="text-align: center;"><label for="ht" class="col-form-label">해시태그</label></td>
+                        <td colspan="2" class="col-7"><input type="text" name="ht" id="ht" class="form-control" value="{{', '.join(row.ht)}}"></td>
+                        <td class="col-1" style="text-align: right;"><label for="term" class="col-form-label">수행년월</label></td>
+                        <td class="col-2"><input type="text" name="term" id="term" class="form-control" value="{{row.term}}"></td>
+                    </tr>
+                    {% for author in row.authors %}
+                    <tr class="d-flex">
+                        {% if loop.first %}
+                            <td class="col-2" style="text-align: center;"><label for="{{'name'+str(loop.index)}}" class="col-form-label">멤버</label></td>
+                        {% else %}
+                            <td class="col-2"></td>
+                        {% endif %}
+                        <td class="col-1" style="text-align: right;"><label for="{{'name'+str(loop.index)}}" class="col-form-label">이름</label></td>
+                        <td class="col-3"><input type="text" name="{{'name'+str(loop.index)}}" id="{{'name'+str(loop.index)}}" class="form-control" value="{{author.name}}"></td>
+                        <td class="col-2" style="text-align: right;"><label for="{{'email'+str(loop.index)}}" class="col-form-label">이메일</label></td>
+                        <td class="col-4"><input type="text" name="{{'email'+str(loop.index)}}" id="{{'email'+str(loop.index)}}" class="form-control" value="{{author.email}}"></td>
+                    </tr>
+                    {% endfor %}
+                    <tr class="d-flex">
+                        <td class="col-2" style="text-align: center;"><label for="cn" class="col-form-label">과정</label></td>
+                        <td class="col-1" style="text-align: right;"><label for="cn" class="col-form-label">과정명</label></td>
+                        <td class="col-5"><input type="text" name="cn" id="cn" class="form-control" value="row.cn"></td>
+                        <td class="col-2" style="text-align: right;"><label for="co" class="col-form-label">수행기관</label></td>
+                        <td class="col-2"><input type="text" name="co" id="co" class="form-control" value="row.co"></td>
+                    </tr>
+                    {% for file in row.files %}
+                    <tr class="d-flex">
+                        {% if loop.first %}
+                            <td class="col-2" style="text-align: center;"><label for="pdf" class="col-form-label">첨부파일</label></td>
+                        {% else %}
+                            <td class="col-2"></td>
+                        {% endif %}
+                        <td class="col-10" colspan="4">
+                            {{file}}
+                            <button type="button" class="btn btn-outline-primary btn-sm ml-1 mr-5 mb-2">삭제</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="5" style="text-align: center;">
+                            <input class="btn btn-primary" type="submit" value="제출">
+                            <input class="btn btn-secondary" type="reset" value="취소">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block additional_body %}
+    <script>
+        $("#pdf").on("change", function() {
+            var fileName1 = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName1);
+        });
+        $("#mp4").on("change", function() {
+            var fileName2 = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName2);
+        });
+        $("#file3").on("change", function() {
+            var fileName3 = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName3);
+        });
+        $("#file4").on("change", function() {
+            var fileName4 = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName4);
+        });
+    </script>  
+{% endblock %}

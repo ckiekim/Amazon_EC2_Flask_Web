@@ -104,6 +104,18 @@ def register():
         pm.insert_pbbs(params)
         return redirect(url_for('pbbs_bp.list', page=session['current_project_page']))
 
+@pbbs_bp.route('/update/<int:pid>', methods=['GET', 'POST'])
+def update(pid):
+    if request.method == 'GET':
+        if session['uid'] != 'admin':
+            flash('수정 권한이 없습니다.')
+            return redirect(url_for('pbbs_bp.view', pid=pid))
+        row = pm.get_pbbs_data(pid)
+        return render_template('pbbs/update.html', menu=menu, weather=get_weather(),
+                                row=row, page=session['current_project_page'])
+    else:
+        pass
+
 @pbbs_bp.route('/delete/<int:pid>', methods=['GET'])
 def delete(pid):
     if session['uid'] != 'admin':
