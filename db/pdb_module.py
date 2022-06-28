@@ -65,7 +65,7 @@ def get_pbbs_counts():
 def update_pbbs(params):
     conn = mc.connect(**config)
     cur = conn.cursor()
-    sql = """UPDATE pbbs SET title=%s,content=%s,cn=%s,co=%s,authors=%s,term=%s,files=%s,ht=%s,days=%s
+    sql = """UPDATE pbbs SET title=%s,content=%s,cn=%s,co=%s,authors=%s,term=%s,ht=%s,days=%s
              WHERE pid=%s"""
     cur.execute(sql, params)
     conn.commit()

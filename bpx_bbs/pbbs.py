@@ -114,7 +114,27 @@ def update(pid):
         return render_template('pbbs/update.html', menu=menu, weather=get_weather(),
                                 row=row, page=session['current_project_page'])
     else:
-        pass
+        title = request.form['title'].strip()
+        days = int(request.form['days'].strip())
+        content = request.form['content'].strip()
+        content = content.replace('\r', '')
+        content = content.replace('\n', '<br>')
+        ht = request.form['ht'].strip()             # hash tag
+        ht_list = [tag.strip() for tag in ht.split(',')]
+        term = request.form['term'].strip()
+        cn = request.form['cn'].strip()             # course name
+        co = request.form['co'].strip()             # course organization
+
+        num_authors = int(request.form['numAuthors'])
+        authors = []
+        for i in range(num_authors):
+            name = request.form[f'name{i+1}']
+            email = request.form[f'email{i+1}']
+            authors.append({'name':name, 'email':email})
+            
+        params = (title,content,cn,co,json.dumps(authors),term,json.dumps(ht_list),days,pid)
+        pm.update_pbbs(params)
+        return redirect(url_for('pbbs_bp.list', page=session['current_project_page']))
 
 @pbbs_bp.route('/delete/<int:pid>', methods=['GET'])
 def delete(pid):
