@@ -51,13 +51,13 @@
                     {% for file in row.files %}
                     <tr class="d-flex">
                         {% if loop.first %}
-                            <td class="col-2" style="text-align: center;"><label for="pdf" class="col-form-label">첨부파일</label></td>
+                            <td class="col-2" style="text-align: center;">첨부파일</td>
                         {% else %}
                             <td class="col-2"></td>
                         {% endif %}
                         <td class="col-10" colspan="4">
                             {{file}}
-                            <a href="#"><span class="badge badge-light">삭제</span></a>
+                            <a href="#"><span class="badge badge-secondary">삭제</span></a>
                         </td>
                     </tr>
                     {% endfor %}
