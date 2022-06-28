@@ -30,14 +30,14 @@
                     {% for author in row.authors %}
                     <tr class="d-flex">
                         {% if loop.first %}
-                            <td class="col-2" style="text-align: center;"><label for="{{'name'+str(loop.index)}}" class="col-form-label">멤버</label></td>
+                            <td class="col-2" style="text-align: center;"><label for="{{'name'+string(loop.index)}}" class="col-form-label">멤버</label></td>
                         {% else %}
                             <td class="col-2"></td>
                         {% endif %}
-                        <td class="col-1" style="text-align: right;"><label for="{{'name'+str(loop.index)}}" class="col-form-label">이름</label></td>
-                        <td class="col-3"><input type="text" name="{{'name'+str(loop.index)}}" id="{{'name'+str(loop.index)}}" class="form-control" value="{{author.name}}"></td>
-                        <td class="col-2" style="text-align: right;"><label for="{{'email'+str(loop.index)}}" class="col-form-label">이메일</label></td>
-                        <td class="col-4"><input type="text" name="{{'email'+str(loop.index)}}" id="{{'email'+str(loop.index)}}" class="form-control" value="{{author.email}}"></td>
+                        <td class="col-1" style="text-align: right;"><label for="{{'name'+string(loop.index)}}" class="col-form-label">이름</label></td>
+                        <td class="col-3"><input type="text" name="{{'name'+string(loop.index)}}" id="{{'name'+string(loop.index)}}" class="form-control" value="{{author.name}}"></td>
+                        <td class="col-2" style="text-align: right;"><label for="{{'email'+string(loop.index)}}" class="col-form-label">이메일</label></td>
+                        <td class="col-4"><input type="text" name="{{'email'+string(loop.index)}}" id="{{'email'+string(loop.index)}}" class="form-control" value="{{author.email}}"></td>
                     </tr>
                     {% endfor %}
                     <tr class="d-flex">
