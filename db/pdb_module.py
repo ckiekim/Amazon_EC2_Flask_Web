@@ -22,12 +22,18 @@ def get_pbbs_list(offset=0):
         results.append(res)
     return results
 
-def get_pbbs_data(pid):
+def increase_view_count(pid):
     conn = mc.connect(**config)
     cur = conn.cursor()
     sql = "UPDATE pbbs SET vc=vc+1 WHERE pid=%s;"
     cur.execute(sql, (pid,))
     conn.commit()
+    cur.close()
+    conn.close()
+
+def get_pbbs_data(pid):
+    conn = mc.connect(**config)
+    cur = conn.cursor()
     sql = '''SELECT pid, title, content, cn, co, authors, term, files, vc, ht, days
              FROM pbbs WHERE isDeleted=0 and pid=%s'''
     cur.execute(sql, (pid,))

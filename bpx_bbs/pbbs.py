@@ -30,6 +30,7 @@ def list(page):
 
 @pbbs_bp.route('/view/<int:pid>', methods=['GET'])
 def view(pid):
+    pm.increase_view_count(pid)
     row = pm.get_pbbs_data(pid)
     return render_template('pbbs/view.html', menu=menu, weather=get_weather(),
                             row=row, page=session['current_project_page'])
