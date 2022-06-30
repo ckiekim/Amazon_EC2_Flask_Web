@@ -9,7 +9,7 @@
 {% block content %}
     <div class="row">
         <div class="col-12">
-            <form action="/pbbs/update/{{row.pid}}" method="post"> <!-- enctype="multipart/form-data"> -->
+            <form action="/pbbs/update/{{row.pid}}" method="post" enctype="multipart/form-data">
                 <table class="table table-borderless table-sm">
                     <tr class="d-flex">
                         <td class="col-2" style="text-align: center;"><label for="title" class="col-form-label">제목</label></td>
@@ -48,23 +48,38 @@
                         <td class="col-2" style="text-align: right;"><label for="co" class="col-form-label">수행기관</label></td>
                         <td class="col-2"><input type="text" name="co" id="co" class="form-control" value="{{row.co}}"></td>
                     </tr>
-                    {% for file in row.files %}
                     <tr class="d-flex">
-                        {% if loop.first %}
-                            <td class="col-2" style="text-align: center;">첨부파일</td>
-                        {% else %}
-                            <td class="col-2"></td>
-                        {% endif %}
+                        <td class="col-2" style="text-align: center;">첨부된 파일</td>
                         <td class="col-10" colspan="4">
-                            {{file}}
-                            <a href="#"><span class="badge badge-secondary">삭제</span></a>
+                            <div class="uploaded-group">
+                                {% for file in row.files %}
+                                    <div class="uploaded">
+                                        <span class="sp">{{file}}</span>
+                                        <a href="javascript:return false;" onclick="del_file(this)" fname="{{file}}"><span class="badge badge-secondary mb-2">삭제</span></a>
+                                    </div>
+                                {% endfor %}
+                            </div>
                         </td>
                     </tr>
-                    {% endfor %}
+                    <input type="hidden" name="filelist" id="filelist" value="">
+                    <tr class="d-flex">
+                        <td class="col-2" style="text-align: center;">파일 첨부</td>
+                        <td class="col-10">
+                            <div class="control-group" id="fields">
+                                <div class="controls">
+                                    <div class="entry input-group upload-input-group">
+                                        <input class="form-control mb-2" type="file" name="fields[]" multiple="multiple">
+                                        <button class="btn btn-upload btn-success btn-add mb-2" type="button">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                     <tr>
                         <td colspan="5" style="text-align: center;">
-                            <input class="btn btn-primary mt-3" type="submit" value="제출">
-                            <input class="btn btn-secondary mt-3" type="reset" value="취소">
+                            <button class="btn btn-primary" id="send">제출</button>
                         </td>
                     </tr>
                 </table>
@@ -74,21 +89,35 @@
 {% endblock %}
 {% block additional_body %}
     <script>
-        $("#pdf").on("change", function() {
-            var fileName1 = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName1);
+        function del_file(obj) {
+            $(obj).parent().remove();
+        }
+        $(function () {
+            $(document).on('click', '#send', function(e) {
+                let flist = [];
+                e.preventDefault();
+                $('.sp').each(function(index) {
+                    flist.push($(this).text());
+                });
+                //console.log(JSON.stringify(flist));
+                $('#filelist').attr('value', JSON.stringify(flist));
+                $('form').submit();
+            }).on('click', '.btn-add', function(e) {
+                e.preventDefault();
+                var controlForm = $('.controls:first'),
+                    currentEntry = $(this).parents('.entry:first'),
+                    newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+                newEntry.find('input').val('');
+                controlForm.find('.entry:not(:last) .btn-add')
+                    .removeClass('btn-add').addClass('btn-remove')
+                    .removeClass('btn-success').addClass('btn-danger')
+                    .html('<span class="fa fa-trash"></span>');
+            }).on('click', '.btn-remove', function(e) {
+                $(this).parents('.entry:first').remove();
+                e.preventDefault();
+                return false;
+            });
         });
-        $("#mp4").on("change", function() {
-            var fileName2 = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName2);
-        });
-        $("#file3").on("change", function() {
-            var fileName3 = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName3);
-        });
-        $("#file4").on("change", function() {
-            var fileName4 = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName4);
-        });
-    </script>  
+    </script>
 {% endblock %}

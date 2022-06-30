@@ -131,8 +131,16 @@ def update(pid):
             name = request.form[f'name{i+1}']
             email = request.form[f'email{i+1}']
             authors.append({'name':name, 'email':email})
+
+        filelist = json.loads(request.form['filelist'])
+        files = request.files.getlist('fields[]')
+        for file in files:
+            fname = modify_filename(file.filename)
+            filelist.append(fname)
+            file_up = os.path.join(current_app.root_path, 'static/project_upload/') + fname
+            file.save(file_up)
             
-        params = (title,content,cn,co,json.dumps(authors),term,json.dumps(ht_list),days,pid)
+        params = (title,content,cn,co,json.dumps(authors),term,json.dumps(ht_list),days,json.dumps(filelist),pid)
         pm.update_pbbs(params)
         return redirect(url_for('pbbs_bp.list', page=session['current_project_page']))
 
