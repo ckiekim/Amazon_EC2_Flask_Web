@@ -111,7 +111,7 @@ def update(pid):
             flash('수정 권한이 없습니다.')
             return redirect(url_for('pbbs_bp.view', pid=pid))
         row = pm.get_pbbs_data(pid)
-        row.content = row.content.replace('<br>','\n')
+        row['content'] = row['content'].replace('<br>','\n')
         return render_template('pbbs/update.html', menu=menu, weather=get_weather(),
                                 row=row, page=session['current_project_page'])
     else:
