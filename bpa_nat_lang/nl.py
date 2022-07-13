@@ -14,7 +14,15 @@ menu = {'ho':0, 'bb':0, 'ma':0, 'us':0, 'li':0,
 @nl_bp.route('/translate', methods=['GET', 'POST'])
 def translate():
     if request.method == 'GET':
-        return render_template('nat_lang/translate.html', menu=menu, weather=get_weather())
+        options = [
+            {'disp':'영어', 'val':'en'},
+            {'disp':'일어', 'val':'jp'},
+            {'disp':'중국어', 'val':'cn'},
+            {'disp':'프랑스어', 'val':'fr'},
+            {'disp':'스페인어', 'val':'es'}
+        ]
+        return render_template('nat_lang/translate.html', menu=menu, weather=get_weather(),
+                                options=options)
     else:
         text = request.form['text']
         lang = request.form['lang']

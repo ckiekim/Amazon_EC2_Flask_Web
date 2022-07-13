@@ -21,31 +21,13 @@
                     <tr>
                         <td>언어 선택</td>
                         <td>
+                            {% for option in options %}
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="lang" value="en" checked>영어
+                                    <input type="radio" class="form-check-input" name="lang" value="{{option.val}}" {% if loop.first %}checked{% endif %}>{{option.disp}}
                                 </label>
                             </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="lang" value="jp">일어
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="lang" value="cn">중국어
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="lang" value="fr">프랑스어
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="lang" value="es">스페인어
-                                </label>
-                            </div>
+                            {% endfor %}
                         </td>
                     </tr>
                     <tr>
