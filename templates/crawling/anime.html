@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>Animation Image</strong><small> - AnimeGANv2 참조</small>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <form action="/crawling/anime" method="POST" enctype="multipart/form-data">
+                <table class="table table-borderless">
+                    <tr>
+                        <td><label for="version">버전</label></td>
+                        <td> 
+                            <div class="form-check-inline mr-5">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="version" value="1">버전 1 (🔺stylization, 🔻robustness)
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="version" value="2" checked>버전 2 (🔺robustness, 🔻stylization)
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="face">이미지</label></td>
+                        <td>
+                            <div class="custom-file mb-3">
+                                <input type="file" class="custom-file-input" id="face" name="face">
+                                <label class="custom-file-label" for="face">얼굴 사진 파일 선택</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <button type="submit" class="btn btn-primary mr-2">실행</button>
+                            <button type="reset" class="btn btn-secondary">취소</button>
+                        </td>
+                    </tr>
+                </table>		
+            </form>
+        </div>
+        <div class="col-1"></div>
+    </div>
+{% endblock %}
+{% block additional_body %}
+    <script>
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+{% endblock %}
