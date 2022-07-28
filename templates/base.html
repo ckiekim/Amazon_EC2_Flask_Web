@@ -42,18 +42,6 @@
                     <a class="dropdown-item" href="/pbbs/list/1">프로젝트 게시판</a>
                 </div>
             </li>
-            <!-- <li class="nav-item mr-1">
-                <a class="nav-link {% if menu.bb %}active{% endif %}" 
-                   href="{% if menu.bb %}#{% else %}/bbs/list/1{% endif %}">
-                    <i class="far fa-list-alt"></i> 자유게시판
-                </a>
-            </li>
-            <li class="nav-item mr-1">
-                <a class="nav-link {% if menu.pb %}active{% endif %}" 
-                   href="{% if menu.bb %}#{% else %}/pbbs/list/0{% endif %}">
-                    <i class="far fa-list-alt"></i> 프로젝트
-                </a>
-            </li> -->
             <li class="nav-item mr-1">
                 <a class="nav-link {% if menu.ma %}active{% endif %}" 
                    href="{% if menu.ma %}#{% else %}/mail{% endif %}">
@@ -83,11 +71,6 @@
                         <i class="fas fa-sign-in-alt"></i> 로그인
                     </a>
                 </li>
-                <!-- <li class="nav-item mr-1">
-                    <a class="nav-link {% if menu.rg %}active{% endif %}" href="/user/register">
-                        <i class="fas fa-user-plus"></i> 회원가입
-                    </a>
-                </li> -->
             {% endif %}
             <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
@@ -191,13 +174,15 @@
                     </li>
                     <div class="dropdown-divider"></div>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {% if menu.re %}active{% endif %}" 
-                           data-toggle="dropdown" href="#">회귀</a>
+                        <a class="nav-link dropdown-toggle {% if menu.rc %}active{% endif %}" 
+                           data-toggle="dropdown" href="#">회귀/군집화</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="/regression/diabetes">당뇨병</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/regression/iris">아이리스 피처</a>
                             <a class="dropdown-item" href="/regression/boston">보스톤 집값</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/cluster/cluster">군집화/PCA</a>
                         </div>
                     </li>
                     <div class="dropdown-divider"></div>
@@ -227,6 +212,15 @@
                             <a class="dropdown-item" href="/nat_lang/tts">음성 합성</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/nat_lang/emotion">외국어 감성분석</a>
+                        </div>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if menu.mi %}active{% endif %}" 
+                        data-toggle="dropdown" href="#">기타</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/misc/order">조 추첨</a>
                         </div>
                     </li>
                     <div class="dropdown-divider"></div>

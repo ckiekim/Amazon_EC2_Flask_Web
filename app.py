@@ -15,6 +15,7 @@ from bp8_regression.rgrs import rgrs_bp
 from bp9_clustering.clus import clus_bp
 from bpa_nat_lang.nl import nl_bp
 from bpb_sentiment.senti import senti_bp
+from bpc_misc.misc import misc_bp
 from bpx_bbs.bbs import bbs_bp
 from bpx_bbs.pbbs import pbbs_bp
 from bpz_user.user import user_bp
@@ -34,6 +35,7 @@ app.register_blueprint(rgrs_bp, url_prefix='/regression')
 app.register_blueprint(clus_bp, url_prefix='/cluster')
 app.register_blueprint(nl_bp, url_prefix='/nat_lang')
 app.register_blueprint(senti_bp, url_prefix='/sentiment')
+app.register_blueprint(misc_bp, url_prefix='/misc')
 app.register_blueprint(bbs_bp, url_prefix='/bbs')
 app.register_blueprint(pbbs_bp, url_prefix='/pbbs')
 app.register_blueprint(user_bp, url_prefix='/user')
@@ -46,7 +48,7 @@ dictConfig(config)
 def index():
     menu = {'ho':1, 'bb':0, 'ma':0, 'us':0, 'li':0,
             'se':0, 'cg':0, 'cr':0, 'wc':0, 'rs':0,
-            'cf':0, 'ac':0, 're':0, 'cu':0, 'nl':0, 'st':0}
+            'cf':0, 'ac':0, 'rc':0, 'nl':0, 'st':0, 'mi':0}
     client_addr = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
     logging.debug(f'Connected to {client_addr}')
     try:
@@ -64,7 +66,7 @@ def index():
 def mail():
     menu = {'ho':0, 'bb':0, 'ma':1, 'us':0, 'li':0,
             'se':0, 'cg':0, 'cr':0, 'wc':0, 'rs':0,
-            'cf':0, 'ac':0, 're':0, 'cu':0, 'nl':0, 'st':0}
+            'cf':0, 'ac':0, 'rc':0, 'nl':0, 'st':0, 'mi':0}
     if request.method == 'GET':
         return render_template('mail.html', menu=menu, weather=get_weather())
     else:

@@ -11,7 +11,7 @@ from my_util.weather import get_weather
 rgrs_bp = Blueprint('rgrs_bp', __name__)
 menu = {'ho':0, 'bb':0, 'ma':0, 'us':0, 'li':0,
         'se':0, 'cg':0, 'cr':0, 'wc':0, 'rs':0,
-        'cf':0, 'ac':0, 're':1, 'cu':0, 'nl':0, 'st':0}
+        'cf':0, 'ac':0, 'rc':1, 'nl':0, 'st':0, 'mi':0}
 
 diabetes_max_index = 110
 iris_max_index = 37

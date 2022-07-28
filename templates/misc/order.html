@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>조 추첨</strong>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form action="/misc/order" method="post">
+                <table class="table table-borderless">
+                    <tr>
+                        <td style="vertical-align: middle;">팀 수</td>
+                        <td><input type="text" class="form-control" name="number" placeholder="2에서 9사이의 숫자를 입력하세요."></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <button type="submit" class="btn btn-primary mr-2">실행</button>
+                            <button type="reset" class="btn btn-secondary">취소</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
+{% endblock %}
