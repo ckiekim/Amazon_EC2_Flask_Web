@@ -16,7 +16,7 @@ def get_cosine_sim():
 
     df = pd.read_csv('static/data/movies_summary.csv')
     df.dropna(how='any', inplace=True)
-    df = df.head(8000)      # AWS EC2 8000, Oracle cloud 10000
+    df = df.head(5000)      # AWS EC2 5000, Oracle cloud 10000
     df['total'] = df.overview + ' ' + df.director + ' ' + df.cast3
 
     tvect = TfidfVectorizer(stop_words='english')

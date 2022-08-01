@@ -11,7 +11,7 @@ menu = {'ho':0, 'bb':0, 'ma':0, 'us':0, 'li':0,
         'se':0, 'cg':0, 'cr':0, 'wc':0, 'rs':1,
         'cf':0, 'ac':0, 'rc':0, 'nl':0, 'st':0, 'mi':0}
 
-movie_max_index = 7999      # AWS EC2 8000, Oracle cloud 10000
+movie_max_index = 4999      # AWS EC2 5000, Oracle cloud 10000
 book_max_index = 2380
 ml_latest_max_index = 610
 ml_latest_min_index = 1
