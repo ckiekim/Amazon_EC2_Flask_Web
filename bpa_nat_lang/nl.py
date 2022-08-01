@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, session
 from flask import current_app, redirect, url_for
-import os, json, requests, re, joblib
+import os, requests, re, joblib
 from urllib.parse import quote
 #from konlpy.tag import Okt
 from my_util.global_vars import okt
@@ -9,7 +9,7 @@ from my_util.weather import get_weather
 nl_bp = Blueprint('nl_bp', __name__)
 menu = {'ho':0, 'bb':0, 'ma':0, 'us':0, 'li':0,
         'se':0, 'cg':0, 'cr':0, 'wc':0, 'rs':0,
-        'cf':0, 'ac':0, 're':0, 'cu':0, 'nl':1, 'st':0}
+        'cf':0, 'ac':0, 'rc':0, 'nl':1, 'st':0, 'mi':0}
 
 @nl_bp.route('/translate', methods=['GET', 'POST'])
 def translate():
@@ -56,7 +56,7 @@ def tts():
                 "Authorization": "KakaoAK " + kai_key}
         response = requests.post(t_url, data=data.encode('utf-8'), headers=headers)
         rescode = response.status_code
-        audio_file = os.path.join(current_app.root_path, 'static/img/tts.mp3')
+        audio_file = os.path.join(current_app.root_path, 'static/tmp/tts.mp3')
         if rescode == 200:
             with open(audio_file, 'wb') as f:
                 f.write(response.content)

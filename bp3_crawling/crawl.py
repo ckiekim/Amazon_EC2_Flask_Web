@@ -8,7 +8,7 @@ import os
 crawl_bp = Blueprint('crawl_bp', __name__)
 menu = {'ho':0, 'bb':0, 'ma':0, 'us':0, 'li':0,
         'se':0, 'cg':0, 'cr':1, 'wc':0, 'rs':0,
-        'cf':0, 'ac':0, 're':0, 'cu':0, 'nl':0, 'st':0}
+        'cf':0, 'ac':0, 'rc':0, 'nl':0, 'st':0, 'mi':0}
 
 @crawl_bp.route('/food', methods=['GET', 'POST'])
 def food():

@@ -120,7 +120,7 @@ $ cd web/db                                                 # mysql.json upload
     # mysql.json에 "charset": "utf8mb4" 추가할 것
 $ python db_init.py                                         # table 및 초기데이터 생성
 $ cd ../static
-$ mkdir clus_pca_data img keys model movies upload          # img, keys, movies data upload
+$ mkdir clus_pca_data tmp keys model movies upload          # tmp, keys, movies data upload
 $ cd data
 $ mkdir mnist, movies, naver, news                          # mnist, movies, naver, news data upload
 $ cd ~/web/bp5_recommendation

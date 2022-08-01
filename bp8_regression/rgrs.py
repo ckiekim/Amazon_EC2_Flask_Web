@@ -47,7 +47,7 @@ def diabetes():
         plt.grid()
         plt.legend()
         plt.title(f'Diabetes target vs. {feature}')
-        img_file = os.path.join(current_app.root_path, 'static/img/diabetes.png')
+        img_file = os.path.join(current_app.root_path, 'static/tmp/diabetes.png')
         plt.savefig(img_file)
         mtime = int(os.stat(img_file).st_mtime)
 

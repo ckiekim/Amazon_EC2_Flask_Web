@@ -18,7 +18,7 @@ from tensorflow.keras.models import load_model
 senti_bp = Blueprint('senti_bp', __name__)
 menu = {'ho':0, 'bb':0, 'ma':0, 'us':0, 'li':0,
         'se':0, 'cg':0, 'cr':0, 'wc':0, 'rs':0,
-        'cf':0, 'ac':0, 're':0, 'cu':0, 'nl':0, 'st':1}
+        'cf':0, 'ac':0, 'rc':0, 'nl':0, 'st':1, 'mi':0}
 
 spam_max_index = 1292
 imdb_max_index = 6249

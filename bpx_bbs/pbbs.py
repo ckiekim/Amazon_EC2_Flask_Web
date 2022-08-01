@@ -5,9 +5,9 @@ import db.pdb_module as pm
 from my_util.weather import get_weather
 
 pbbs_bp = Blueprint('pbbs_bp', __name__)
-menu = {'ho':0, 'bb':1, 'ma':0, 'us':0, 'li':0, 
+menu = {'ho':0, 'bb':1, 'ma':0, 'us':0, 'li':0,
         'se':0, 'cg':0, 'cr':0, 'wc':0, 'rs':0,
-        'cf':0, 'ac':0, 're':0, 'cu':0, 'nl':0, 'st':0}
+        'cf':0, 'ac':0, 'rc':0, 'nl':0, 'st':0, 'mi':0}
 
 @pbbs_bp.route('/list/<int:page>', methods=['GET'])
 def list(page):

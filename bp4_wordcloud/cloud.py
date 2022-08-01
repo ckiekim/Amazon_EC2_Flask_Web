@@ -8,7 +8,7 @@ from my_util.wordCloud import engCloud, hanCloud
 cloud_bp = Blueprint('cloud_bp', __name__)
 menu = {'ho':0, 'bb':0, 'ma':0, 'us':0, 'li':0,
         'se':0, 'cg':0, 'cr':0, 'wc':1, 'rs':0,
-        'cf':0, 'ac':0, 're':0, 'cu':0, 'nl':0, 'st':0}
+        'cf':0, 'ac':0, 'rc':0, 'nl':0, 'st':0, 'mi':0}
 
 @cloud_bp.route('/han/gift')
 def gift():
@@ -23,7 +23,7 @@ def gift():
         확인 채택 수수료 정액 답변 스 이 제공 정말 파트너 생일 변경 지금 활동 쿠팡 통해 각인
     """
     stop_words = stoptext.split()
-    img_file = os.path.join(current_app.root_path, 'static/img/text.png')
+    img_file = os.path.join(current_app.root_path, 'static/tmp/text.png')
     with open(textfile, encoding='utf-8') as fp:
         text = fp.read()
     hanCloud(text, stop_words, maskfile, img_file)
@@ -44,7 +44,7 @@ def eng(option):
     
     textfile = os.path.join(current_app.root_path, 'static/data/') + filename
     logging.debug(f'{textfile}, {maskfile}')
-    img_file = os.path.join(current_app.root_path, 'static/img/text.png')
+    img_file = os.path.join(current_app.root_path, 'static/tmp/text.png')
     with open(textfile) as fp:
         text = fp.read()
     if option == 'Starwars':
@@ -75,7 +75,7 @@ def text():
 
         text = open(file_text, encoding='utf-8').read()
         stop_words = stop_words.split(' ') if stop_words else []
-        img_file = os.path.join(current_app.root_path, 'static/img/text.png')
+        img_file = os.path.join(current_app.root_path, 'static/tmp/text.png')
         if lang == 'en':
             engCloud(text, stop_words, file_mask, img_file)
         else:

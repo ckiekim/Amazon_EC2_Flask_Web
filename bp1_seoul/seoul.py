@@ -13,7 +13,7 @@ from my_util.weather import get_weather
 seoul_bp = Blueprint('seoul_bp', __name__)
 menu = {'ho':0, 'bb':0, 'ma':0, 'us':0, 'li':0,
         'se':1, 'cg':0, 'cr':0, 'wc':0, 'rs':0,
-        'cf':0, 'ac':0, 're':0, 'cu':0, 'nl':0, 'st':0}
+        'cf':0, 'ac':0, 'rc':0, 'nl':0, 'st':0, 'mi':0}
 # 한글 폰트
 mpl.rcParams['axes.unicode_minus'] = False
 mpl.rc('font', family='NanumGothic') 
@@ -30,7 +30,7 @@ def park():
                                 radius=int(park_new['size'][i]),
                                 tooltip=f"{park_new['공원명'][i]}({int(park_new.area[i])}㎡)",
                                 color='#3186cc', fill_color='#3186cc').add_to(map)
-        html_file = os.path.join(current_app.root_path, 'static/img/park.html')
+        html_file = os.path.join(current_app.root_path, 'static/tmp/park.html')
         map.save(html_file)
         mtime = int(os.stat(html_file).st_mtime)
         return render_template('seoul/park.html', menu=menu, weather=get_weather(),
@@ -52,7 +52,7 @@ def park():
             folium.CircleMarker([df.lat[0], df.lng[0]], radius=int(df['size'][0]),
                                     tooltip=f"{df['공원명'][0]}({int(df.area[0])}㎡)",
                                     color='crimson', fill_color='crimson').add_to(map)
-            html_file = os.path.join(current_app.root_path, 'static/img/park_res.html')
+            html_file = os.path.join(current_app.root_path, 'static/tmp/park_res.html')
             map.save(html_file)
             mtime = int(os.stat(html_file).st_mtime)
             return render_template('seoul/park_res.html', menu=menu, weather=get_weather(),
@@ -72,7 +72,7 @@ def park():
                                     radius=int(df['size'][i])*3,
                                     tooltip=f"{df['공원명'][i]}({int(df.area[i])}㎡)",
                                     color='#3186cc', fill_color='#3186cc').add_to(map)
-            html_file = os.path.join(current_app.root_path, 'static/img/park_res.html')
+            html_file = os.path.join(current_app.root_path, 'static/tmp/park_res.html')
             map.save(html_file)
             mtime = int(os.stat(html_file).st_mtime)
             return render_template('seoul/park_res2.html', menu=menu, weather=get_weather(),
@@ -105,7 +105,7 @@ def park_gu(option):
                         radius=int(park_new['size'][i]),
                         tooltip=f"{park_new['공원명'][i]}({int(park_new.area[i])}㎡)",
                         color='green', fill_color='green').add_to(map)
-    html_file = os.path.join(current_app.root_path, 'static/img/park_gu.html')
+    html_file = os.path.join(current_app.root_path, 'static/tmp/park_gu.html')
     map.save(html_file)
     mtime = int(os.stat(html_file).st_mtime)
     return render_template('seoul/park_gu.html', menu=menu, weather=get_weather(),
@@ -144,7 +144,7 @@ def crime(option):
             )
         ).add_to(map)
 
-    html_file = os.path.join(current_app.root_path, 'static/img/crime.html')
+    html_file = os.path.join(current_app.root_path, 'static/tmp/crime.html')
     map.save(html_file)
     mtime = int(os.stat(html_file).st_mtime)
     return render_template('seoul/crime.html', menu=menu, weather=get_weather(),
@@ -177,7 +177,7 @@ def cctv(option):
         plt.xlabel('인구수')
         plt.ylabel('CCTV')
         plt.colorbar()
-        img_file = os.path.join(current_app.root_path, 'static/img/cctv.png')
+        img_file = os.path.join(current_app.root_path, 'static/tmp/cctv.png')
         plt.savefig(img_file)
         mtime = int(os.stat(img_file).st_mtime)
 

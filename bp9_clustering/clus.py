@@ -10,12 +10,12 @@ import matplotlib.pyplot as plt
 from my_util.weather import get_weather
 
 clus_bp = Blueprint('clus_bp', __name__)
+menu = {'ho':0, 'bb':0, 'ma':0, 'us':0, 'li':0,
+        'se':0, 'cg':0, 'cr':0, 'wc':0, 'rs':0,
+        'cf':0, 'ac':0, 'rc':1, 'nl':0, 'st':0, 'mi':0}
 
 @clus_bp.route('/cluster', methods=['GET', 'POST'])
 def cluster():
-    menu = {'ho':0, 'bb':0, 'ma':0, 'us':0, 'li':0,
-            'se':0, 'cg':0, 'cr':0, 'wc':0, 'rs':0,
-            'cf':0, 'ac':0, 'rc':1, 'nl':0, 'st':0, 'mi':0}
     if request.method == 'GET':
         return render_template('cluster/cluster.html', menu=menu, weather=get_weather())
     else:
@@ -60,7 +60,7 @@ def cluster():
             plt.scatter(x_axis_data, y_axis_data, marker=marker)
         plt.title('Original Data', fontsize=15)
         plt.xlabel('PCA 1'); plt.ylabel('PCA 2')
-        img_file = os.path.join(current_app.root_path, 'static/img/cluster0.png')
+        img_file = os.path.join(current_app.root_path, 'static/tmp/cluster0.png')
         plt.savefig(img_file)
 
         plt.figure()
@@ -71,7 +71,7 @@ def cluster():
             plt.scatter(x_axis_data, y_axis_data, marker=marker)
         plt.xlabel('PCA 1'); plt.ylabel('PCA 2')
         plt.title(f'{k_number} Clustering Result', fontsize=15)
-        img_file = os.path.join(current_app.root_path, 'static/img/cluster1.png')
+        img_file = os.path.join(current_app.root_path, 'static/tmp/cluster1.png')
         plt.savefig(img_file)
 
         mtime = int(os.stat(img_file).st_mtime)

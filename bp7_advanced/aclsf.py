@@ -18,7 +18,7 @@ from my_util.weather import get_weather
 aclsf_bp = Blueprint('aclsf_bp', __name__)
 menu = {'ho':0, 'bb':0, 'ma':0, 'us':0, 'li':0,
         'se':0, 'cg':0, 'cr':0, 'wc':0, 'rs':0,
-        'cf':0, 'ac':1, 're':0, 'cu':0, 'nl':0, 'st':0}
+        'cf':0, 'ac':1, 'rc':0, 'nl':0, 'st':0, 'mi':0}
 
 digits_max_index = 445
 mnist_max_index = 10487
@@ -70,7 +70,7 @@ def digits():
         pred_sv = svc.predict(test_scaled)
         pred_rf = rfc.predict(test_scaled)
 
-        img_file_wo_ext = os.path.join(current_app.root_path, 'static/img/digit')
+        img_file_wo_ext = os.path.join(current_app.root_path, 'static/tmp/digit')
         for k, i in enumerate(index_list):
             plt.figure(figsize=(2,2))
             plt.xticks([]); plt.yticks([])
@@ -102,7 +102,7 @@ def mnist():
         svc = joblib.load('static/model/mnist_sv.pkl')
         pred_sv = svc.predict(test_scaled)
 
-        img_file_wo_ext = os.path.join(current_app.root_path, 'static/img/mnist')
+        img_file_wo_ext = os.path.join(current_app.root_path, 'static/tmp/mnist')
         for i in range(3):
             digit = test_data[i].reshape(28,28)
             plt.figure(figsize=(4,4))
@@ -131,7 +131,7 @@ def fmnist():
         pred = model.predict(test_data)
         result = np.argmax(pred, axis=1)
 
-        img_file_wo_ext = os.path.join(current_app.root_path, 'static/img/fashion')
+        img_file_wo_ext = os.path.join(current_app.root_path, 'static/tmp/fashion')
         for k, i in enumerate(index_list):
             plt.figure(figsize=(2,2))
             plt.xticks([]); plt.yticks([])
@@ -241,7 +241,7 @@ def face():
                     y = int(float(part[1]) * height)
                     draw.ellipse((x-2, y-2, x+2, y+2), fill='white', outline='white')
         
-        face_img = os.path.join(current_app.root_path, 'static/img/face'+image_type)
+        face_img = os.path.join(current_app.root_path, 'static/tmp/face'+image_type)
         img.save(face_img)
         mtime = int(os.stat(face_img).st_mtime)
         return render_template('advanced/face_res.html', menu=menu, weather=get_weather(),
@@ -279,7 +279,7 @@ def ocr():
                 draw.rectangle((tuple(obj['boxes'][0]), tuple(obj['boxes'][2])), width=5)
             texts.append(obj['recognition_words'][0])
         
-        ocr_img = os.path.join(current_app.root_path, 'static/img/ocr'+image_type)
+        ocr_img = os.path.join(current_app.root_path, 'static/tmp/ocr'+image_type)
         img.save(ocr_img)
         mtime = int(os.stat(ocr_img).st_mtime)
         return render_template('advanced/ocr_res.html', menu=menu, weather=get_weather(),
@@ -336,7 +336,7 @@ def detect():
             draw.text((x+10,y+10), name, font=ImageFont.truetype('NanumGothic.ttf', 20), fill=(255,0,0))
             draw.rectangle(((x, y), (x+w, y+h)), outline=(255,0,0), width=2)
             object_list.append(name)
-        object_img = os.path.join(current_app.root_path, 'static/img/object.'+image_type)
+        object_img = os.path.join(current_app.root_path, 'static/tmp/object.'+image_type)
         image.save(object_img)
         mtime = int(os.stat(object_img).st_mtime)
         return render_template('advanced/detect_res.html', menu=menu, weather=get_weather(),

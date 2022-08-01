@@ -10,7 +10,7 @@ clova_key.json
 papago_key.json
 fontawesome-free-5.15.1-web/
 log/app.*
-img/
+tmp/
 upload/
 chromedriver.exe
 covid.db

@@ -18,7 +18,7 @@
                 <tr>
                     <td>이미지</td>
                     {% for i in result.index %}
-                        <td><img src="{{url_for('static', filename='img/mnist'+(loop.index|string)+'.png', q=mtime)}}" width="200" alt="숫자 이미지"></td>
+                        <td><img src="{{url_for('static', filename='tmp/mnist'+(loop.index|string)+'.png', q=mtime)}}" width="200" alt="숫자 이미지"></td>
                     {% endfor %}
                 </tr>
                 <tr>
