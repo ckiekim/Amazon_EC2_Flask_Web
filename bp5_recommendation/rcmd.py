@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, session
+from flask import Blueprint, render_template, request
 from flask import current_app, redirect, url_for, flash
-import joblib
+import joblib, os
 import pandas as pd
 import my_util.rcmd_util as mr
 import my_util.general_util as gu
@@ -22,7 +22,7 @@ def movie():
         return render_template('rcmd/spinner.html', menu=menu, weather=get_weather())
     else:
         mr.get_cosine_sim()
-        df = pd.read_csv('static/data/movies_meta_summary.csv')
+        df = pd.read_csv(os.path.join(current_app.static_folder, 'data/movies_meta_summary.csv'))
         
         movie_dict = dict(zip(df.title, df.index))
         return render_template('rcmd/movie.html', menu=menu, weather=get_weather(),
@@ -49,7 +49,7 @@ def movie_res():
 
 @rcmd_bp.route('/book', methods=['GET', 'POST'])
 def book():
-    df = pd.read_csv('static/data/books2.csv')
+    df = pd.read_csv(os.path.join(current_app.static_folder, 'data/books2.csv'))
     if request.method == 'GET':
         book_dict = dict(zip(df.title, df.index))
         return render_template('rcmd/book.html', menu=menu, weather=get_weather(),
@@ -83,9 +83,9 @@ def ml_latest():
     if request.method == 'GET':
         return render_template('rcmd/ml_latest.html', menu=menu, weather=get_weather())
     else:
-        rdf = pd.read_csv('static/data/ml-latest/ratings.csv')
-        mdf = pd.read_csv('static/data/ml-latest/movies.csv')
-        model = joblib.load('static/model/movie-surprise.pkl')
+        rdf = pd.read_csv(os.path.join(current_app.static_folder, 'data/ml-latest/ratings.csv'))
+        mdf = pd.read_csv(os.path.join(current_app.static_folder, 'data/ml-latest/movies.csv'))
+        model = joblib.load(os.path.join(current_app.static_folder, 'model/movie-surprise.pkl'))
         uid = gu.get_index(request.form['index'], ml_latest_max_index, ml_latest_min_index)
         seen_movies = rdf[rdf.userId == uid]['movieId'].tolist()
         total_movies = mdf.movieId.tolist()

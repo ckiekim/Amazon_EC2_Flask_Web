@@ -1,6 +1,5 @@
-from flask import Blueprint, render_template, request, session, g
-from flask import current_app, flash, redirect, url_for
-from werkzeug.utils import secure_filename
+from flask import Blueprint, render_template, request
+from flask import current_app
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
@@ -28,11 +27,11 @@ def cluster():
         option = request.form['option']
         if option == 'direct':
             f_csv = request.files['csv']
-            file_csv = os.path.join(current_app.root_path, 'static/upload/') + f_csv.filename
+            file_csv = os.path.join(current_app.static_folder, 'upload/') + f_csv.filename
             f_csv.save(file_csv)
             current_app.logger.debug(f"{k_number}, {f_csv}, {file_csv}")
         else:
-            file_csv = os.path.join(current_app.root_path, 'static/clus_pca_data/') + option + '.csv'
+            file_csv = os.path.join(current_app.static_folder, 'clus_pca_data/') + option + '.csv'
 
         df_csv = pd.read_csv(file_csv)
         # 전처리 - 정규화
@@ -60,7 +59,7 @@ def cluster():
             plt.scatter(x_axis_data, y_axis_data, marker=marker)
         plt.title('Original Data', fontsize=15)
         plt.xlabel('PCA 1'); plt.ylabel('PCA 2')
-        img_file = os.path.join(current_app.root_path, 'static/tmp/cluster0.png')
+        img_file = os.path.join(current_app.static_folder, 'tmp/cluster0.png')
         plt.savefig(img_file)
 
         plt.figure()
@@ -71,7 +70,7 @@ def cluster():
             plt.scatter(x_axis_data, y_axis_data, marker=marker)
         plt.xlabel('PCA 1'); plt.ylabel('PCA 2')
         plt.title(f'{k_number} Clustering Result', fontsize=15)
-        img_file = os.path.join(current_app.root_path, 'static/tmp/cluster1.png')
+        img_file = os.path.join(current_app.static_folder, 'tmp/cluster1.png')
         plt.savefig(img_file)
 
         mtime = int(os.stat(img_file).st_mtime)

@@ -20,7 +20,7 @@ from bpx_bbs.bbs import bbs_bp
 from bpx_bbs.pbbs import pbbs_bp
 from bpz_user.user import user_bp
 
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__)
 app.secret_key = 'qwert12345'   # session, flash 사용하기 위해 설정
 app.config['SESSION_COOKIE_PATH'] = '/'
  
@@ -75,7 +75,7 @@ def mail():
         content = request.form['content']
         files = request.files.getlist('fields[]')
         for file in files:
-            file_up = os.path.join(current_app.root_path, 'static/upload/') + file.filename
+            file_up = os.path.join(app.static_folder, 'upload/') + file.filename
             file.save(file_up)
         sendmail(subject, addr, content, files)
         return redirect('/')

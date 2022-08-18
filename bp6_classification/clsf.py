@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, request, session, g
-from flask import current_app
+from flask import Blueprint, render_template, request, current_app
 import os, joblib
 import pandas as pd
 import my_util.general_util as gu
@@ -22,15 +21,14 @@ def titanic():
         return render_template('classification/titanic.html', menu=menu, weather=get_weather())
     else:
         index = gu.get_index(request.form['index'], titanic_max_index)
-        #index = int(request.form['index'] or '0')
-        df = pd.read_csv('static/data/titanic_test.csv')
-        scaler = joblib.load('static/model/titanic_scaler.pkl')
+        df = pd.read_csv(os.path.join(current_app.static_folder, 'data/titanic_test.csv'))
+        scaler = joblib.load(os.path.join(current_app.static_folder, 'model/titanic_scaler.pkl'))
         test_data = df.iloc[index, :-1].values.reshape(1,-1)
         test_scaled = scaler.transform(test_data)
         label = df.iloc[index, 0]
-        lrc = joblib.load('static/model/titanic_lr.pkl')
-        svc = joblib.load('static/model/titanic_sv.pkl')
-        rfc = joblib.load('static/model/titanic_rf.pkl')
+        lrc = joblib.load(os.path.join(current_app.static_folder, 'model/titanic_lr.pkl'))
+        svc = joblib.load(os.path.join(current_app.static_folder, 'model/titanic_sv.pkl'))
+        rfc = joblib.load(os.path.join(current_app.static_folder, 'model/titanic_rf.pkl'))
         pred_lr = lrc.predict(test_scaled)
         pred_sv = svc.predict(test_scaled)
         pred_rf = rfc.predict(test_scaled)
@@ -56,14 +54,14 @@ def pima():
     else:
         index = gu.get_index(request.form['index'], pima_max_index)
         #index = int(request.form['index'] or '0')
-        df = pd.read_csv('static/data/pima_test.csv')
-        scaler = joblib.load('static/model/pima_scaler.pkl')
+        df = pd.read_csv(os.path.join(current_app.static_folder, 'data/pima_test.csv'))
+        scaler = joblib.load(os.path.join(current_app.static_folder, 'model/pima_scaler.pkl'))
         test_data = df.iloc[index, :-1].values.reshape(1,-1)
         test_scaled = scaler.transform(test_data)
         label = df.iloc[index, -1]
-        lrc = joblib.load('static/model/pima_lr.pkl')
-        svc = joblib.load('static/model/pima_sv.pkl')
-        rfc = joblib.load('static/model/pima_rf.pkl')
+        lrc = joblib.load(os.path.join(current_app.static_folder, 'model/pima_lr.pkl'))
+        svc = joblib.load(os.path.join(current_app.static_folder, 'model/pima_sv.pkl'))
+        rfc = joblib.load(os.path.join(current_app.static_folder, 'model/pima_rf.pkl'))
         pred_lr = lrc.predict(test_scaled)
         pred_sv = svc.predict(test_scaled)
         pred_rf = rfc.predict(test_scaled)
@@ -80,15 +78,15 @@ def cancer():
     else:
         index = gu.get_index(request.form['index'], cancer_max_index)
         #index = int(request.form['index'] or '0')
-        df = pd.read_csv('static/data/cancer_test.csv')
-        scaler = joblib.load('static/model/cancer_scaler.pkl')
+        df = pd.read_csv(os.path.join(current_app.static_folder, 'data/cancer_test.csv'))
+        scaler = joblib.load(os.path.join(current_app.static_folder, 'model/cancer_scaler.pkl'))
         test_data = df.iloc[index, :-1].values.reshape(1,-1)
         test_scaled = scaler.transform(test_data)
 
         label = df.iloc[index, -1]
-        lrc = joblib.load('static/model/cancer_lr.pkl')
-        svc = joblib.load('static/model/cancer_sv.pkl')
-        rfc = joblib.load('static/model/cancer_rf.pkl')
+        lrc = joblib.load(os.path.join(current_app.static_folder, 'model/cancer_lr.pkl'))
+        svc = joblib.load(os.path.join(current_app.static_folder, 'model/cancer_sv.pkl'))
+        rfc = joblib.load(os.path.join(current_app.static_folder, 'model/cancer_rf.pkl'))
         pred_lr = lrc.predict(test_scaled)
         pred_sv = svc.predict(test_scaled)
         pred_rf = rfc.predict(test_scaled)
@@ -105,14 +103,14 @@ def iris():
     else:
         index = gu.get_index(request.form['index'], iris_max_index)
         #index = int(request.form['index'] or '0')
-        df = pd.read_csv('static/data/iris_test.csv')
-        scaler = joblib.load('static/model/iris_scaler.pkl')
+        df = pd.read_csv(os.path.join(current_app.static_folder, 'data/iris_test.csv'))
+        scaler = joblib.load(os.path.join(current_app.static_folder, 'model/iris_scaler.pkl'))
         test_data = df.iloc[index, :-1].values.reshape(1,-1)
         test_scaled = scaler.transform(test_data)
         label = df.iloc[index, -1]
-        lrc = joblib.load('static/model/iris_lr.pkl')
-        svc = joblib.load('static/model/iris_sv.pkl')
-        rfc = joblib.load('static/model/iris_rf.pkl')
+        lrc = joblib.load(os.path.join(current_app.static_folder, 'model/iris_lr.pkl'))
+        svc = joblib.load(os.path.join(current_app.static_folder, 'model/iris_sv.pkl'))
+        rfc = joblib.load(os.path.join(current_app.static_folder, 'model/iris_rf.pkl'))
         pred_lr = lrc.predict(test_scaled)
         pred_sv = svc.predict(test_scaled)
         pred_rf = rfc.predict(test_scaled)
@@ -133,14 +131,14 @@ def wine():
     else:
         index = gu.get_index(request.form['index'], wine_max_index)
         #index = int(request.form['index'] or '0')
-        df = pd.read_csv('static/data/wine_test.csv')
-        scaler = joblib.load('static/model/wine_scaler.pkl')
+        df = pd.read_csv(os.path.join(current_app.static_folder, 'data/wine_test.csv'))
+        scaler = joblib.load(os.path.join(current_app.static_folder, 'model/wine_scaler.pkl'))
         test_data = df.iloc[index, :-1].values.reshape(1,-1)
         test_scaled = scaler.transform(test_data)
         label = df.iloc[index, -1]
-        lrc = joblib.load('static/model/wine_lr.pkl')
-        svc = joblib.load('static/model/wine_sv.pkl')
-        rfc = joblib.load('static/model/wine_rf.pkl')
+        lrc = joblib.load(os.path.join(current_app.static_folder, 'model/wine_lr.pkl'))
+        svc = joblib.load(os.path.join(current_app.static_folder, 'model/wine_sv.pkl'))
+        rfc = joblib.load(os.path.join(current_app.static_folder, 'model/wine_rf.pkl'))
         pred_lr = lrc.predict(test_scaled)
         pred_sv = svc.predict(test_scaled)
         pred_rf = rfc.predict(test_scaled)

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session, g
+from flask import Blueprint, render_template, request
 from flask import current_app, redirect, url_for
 from sklearn.datasets import load_digits
 from tensorflow.keras.datasets import fashion_mnist
@@ -35,15 +35,15 @@ def before_app_first_request():
     #global imdb_count_lr, imdb_tfidf_lr
     #global naver_count_lr, naver_count_nb, naver_tfidf_lr, naver_tfidf_nb
     #global news_count_lr, news_tfidf_lr, news_tfidf_sv
-    #imdb_count_lr = joblib.load('static/model/imdb_count_lr.pkl')
-    #imdb_tfidf_lr = joblib.load('static/model/imdb_tfidf_lr.pkl')
-    #naver_count_lr = joblib.load('static/model/naver_count_lr.pkl')
-    #naver_count_nb = joblib.load('static/model/naver_count_nb.pkl')
-    #naver_tfidf_lr = joblib.load('static/model/naver_tfidf_lr.pkl')
-    #naver_tfidf_nb = joblib.load('static/model/naver_tfidf_nb.pkl')
-    #news_count_lr = joblib.load('static/model/news_count_lr.pkl')
-    #news_tfidf_lr = joblib.load('static/model/news_tfidf_lr.pkl')
-    #news_tfidf_sv = joblib.load('static/model/news_tfidf_sv.pkl')
+    #imdb_count_lr = joblib.load(os.path.join(current_app.static_folder, 'model/imdb_count_lr.pkl'))
+    #imdb_tfidf_lr = joblib.load(os.path.join(current_app.static_folder, 'model/imdb_tfidf_lr.pkl'))
+    #naver_count_lr = joblib.load(os.path.join(current_app.static_folder, 'model/naver_count_lr.pkl'))
+    #naver_count_nb = joblib.load(os.path.join(current_app.static_folder, 'model/naver_count_nb.pkl'))
+    #naver_tfidf_lr = joblib.load(os.path.join(current_app.static_folder, 'model/naver_tfidf_lr.pkl'))
+    #naver_tfidf_nb = joblib.load(os.path.join(current_app.static_folder, 'model/naver_tfidf_nb.pkl'))
+    #news_count_lr = joblib.load(os.path.join(current_app.static_folder, 'model/news_count_lr.pkl'))
+    #news_tfidf_lr = joblib.load(os.path.join(current_app.static_folder, 'model/news_tfidf_lr.pkl'))
+    #news_tfidf_sv = joblib.load(os.path.join(current_app.static_folder, 'model/news_tfidf_sv.pkl'))
 
 @aclsf_bp.route('/digits', methods=['GET', 'POST'])
 def digits():
@@ -54,23 +54,23 @@ def digits():
         #index = int(request.form['index'] or '0')
         index_list = list(range(index, index+5))
         digits = load_digits()
-        df = pd.read_csv('static/data/digits_test.csv')
+        df = pd.read_csv(os.path.join(current_app.static_folder, 'data/digits_test.csv'))
         img_index_list = df['index'].values
         target_index_list = df['target'].values
         index_list = img_index_list[index:index+5]
 
-        scaler = joblib.load('static/model/digits_scaler.pkl')
+        scaler = joblib.load(os.path.join(current_app.static_folder, 'model/digits_scaler.pkl'))
         test_data = df.iloc[index:index+5, 1:-1]
         test_scaled = scaler.transform(test_data)
         label_list = target_index_list[index:index+5]
-        lrc = joblib.load('static/model/digits_lr.pkl')
-        svc = joblib.load('static/model/digits_sv.pkl')
-        rfc = joblib.load('static/model/digits_rf.pkl')
+        lrc = joblib.load(os.path.join(current_app.static_folder, 'model/digits_lr.pkl'))
+        svc = joblib.load(os.path.join(current_app.static_folder, 'model/digits_sv.pkl'))
+        rfc = joblib.load(os.path.join(current_app.static_folder, 'model/digits_rf.pkl'))
         pred_lr = lrc.predict(test_scaled)
         pred_sv = svc.predict(test_scaled)
         pred_rf = rfc.predict(test_scaled)
 
-        img_file_wo_ext = os.path.join(current_app.root_path, 'static/tmp/digit')
+        img_file_wo_ext = os.path.join(current_app.static_folder, 'tmp/digit')
         for k, i in enumerate(index_list):
             plt.figure(figsize=(2,2))
             plt.xticks([]); plt.yticks([])
@@ -93,16 +93,16 @@ def mnist():
         index = gu.get_index(request.form['index'], mnist_max_index)
         #index = int(request.form['index'] or '0')
         index_list = list(range(index, index+3))
-        df = pd.read_csv('static/data/mnist/mnist_test.csv')
+        df = pd.read_csv(os.path.join(current_app.static_folder, 'data/mnist/mnist_test.csv'))
 
-        scaler = joblib.load('static/model/mnist_scaler.pkl')
+        scaler = joblib.load(os.path.join(current_app.static_folder, 'model/mnist_scaler.pkl'))
         test_data = df.iloc[index:index+3, 1:-1].values
         test_scaled = scaler.transform(test_data)
         label_list = df.iloc[index:index+3, -1]
-        svc = joblib.load('static/model/mnist_sv.pkl')
+        svc = joblib.load(os.path.join(current_app.static_folder, 'model/mnist_sv.pkl'))
         pred_sv = svc.predict(test_scaled)
 
-        img_file_wo_ext = os.path.join(current_app.root_path, 'static/tmp/mnist')
+        img_file_wo_ext = os.path.join(current_app.static_folder, 'tmp/mnist')
         for i in range(3):
             digit = test_data[i].reshape(28,28)
             plt.figure(figsize=(4,4))
@@ -127,11 +127,11 @@ def fmnist():
         (_, _), (X_test, y_test) = fashion_mnist.load_data()
         test_data = X_test[index:index+5]
         test_data = test_data.reshape(-1, 28, 28, 1) / 255.
-        model = load_model('static/model/fashion_mnist_cnn.h5')
+        model = load_model(os.path.join(current_app.static_folder, 'model/fashion_mnist_cnn.h5'))
         pred = model.predict(test_data)
         result = np.argmax(pred, axis=1)
 
-        img_file_wo_ext = os.path.join(current_app.root_path, 'static/tmp/fashion')
+        img_file_wo_ext = os.path.join(current_app.static_folder, 'tmp/fashion')
         for k, i in enumerate(index_list):
             plt.figure(figsize=(2,2))
             plt.xticks([]); plt.yticks([])
@@ -159,13 +159,13 @@ def news():
         return render_template('advanced/news.html', menu=menu, weather=get_weather())
     else:
         index = gu.get_index(request.form['index'], news_max_index)
-        df = pd.read_csv('static/data/news/test.csv')
+        df = pd.read_csv(os.path.join(current_app.static_folder, 'data/news/test.csv'))
         label = f'{df.target[index]} ({target_names[df.target[index]]})'
         test_data = []
         test_data.append(df.data[index])
 
-        news_count_sv = joblib.load('static/model/news_count_sv.pkl')
-        news_tfidf_sv = joblib.load('static/model/news_tfidf_sv.pkl')
+        news_count_sv = joblib.load(os.path.join(current_app.static_folder, 'model/news_count_sv.pkl'))
+        news_tfidf_sv = joblib.load(os.path.join(current_app.static_folder, 'model/news_tfidf_sv.pkl'))
         pred_c_sv = news_count_sv.predict(test_data)
         pred_t_sv = news_tfidf_sv.predict(test_data)
         result_dict = {'index':index, 'label':label, 
@@ -181,7 +181,7 @@ def image():
         return render_template('advanced/image.html', menu=menu, weather=get_weather())
     else:
         f_img = request.files['image']
-        file_img = os.path.join(current_app.root_path, 'static/upload/') + f_img.filename
+        file_img = os.path.join(current_app.static_folder, 'upload/') + f_img.filename
         f_img.save(file_img)
         current_app.logger.debug(f"{f_img.filename}, {file_img}")
 
@@ -202,7 +202,7 @@ def face():
         return render_template('advanced/face.html', menu=menu, weather=get_weather())
     else:
         f_img = request.files['image']
-        file_img = os.path.join(current_app.root_path, 'static/upload/') + f_img.filename
+        file_img = os.path.join(current_app.static_folder, 'upload/') + f_img.filename
         f_img.save(file_img)
         _, image_type = os.path.splitext(f_img.filename)
         if image_type[1:] not in ['png', 'jpg']:
@@ -212,7 +212,7 @@ def face():
             return redirect(url_for('aclsf_bp.face'))
         current_app.logger.debug(f"{f_img.filename}, {image_type}, {img.size}")
         
-        with open('static/keys/kakaoaikey.txt') as file:
+        with open(os.path.join(current_app.static_folder, 'keys/kakaoaikey.txt')) as file:
             kakao_key = file.read()
         url = 'https://dapi.kakao.com/v2/vision/face/detect'
         headers = {"Authorization": f'KakaoAK {kakao_key}'}
@@ -241,7 +241,7 @@ def face():
                     y = int(float(part[1]) * height)
                     draw.ellipse((x-2, y-2, x+2, y+2), fill='white', outline='white')
         
-        face_img = os.path.join(current_app.root_path, 'static/tmp/face'+image_type)
+        face_img = os.path.join(current_app.static_folder, 'tmp/face'+image_type)
         img.save(face_img)
         mtime = int(os.stat(face_img).st_mtime)
         return render_template('advanced/face_res.html', menu=menu, weather=get_weather(),
@@ -254,13 +254,13 @@ def ocr():
         return render_template('advanced/ocr.html', menu=menu, weather=get_weather())
     else:
         f_img = request.files['image']
-        file_img = os.path.join(current_app.root_path, 'static/upload/') + f_img.filename
+        file_img = os.path.join(current_app.static_folder, 'upload/') + f_img.filename
         f_img.save(file_img)
         _, image_type = os.path.splitext(f_img.filename)
         img = Image.open(file_img)
         current_app.logger.debug(f"{f_img.filename}, {image_type}, {img.size}")
         
-        with open('static/keys/kakaoaikey.txt') as file:
+        with open(os.path.join(current_app.static_folder, 'keys/kakaoaikey.txt')) as file:
             kakao_key = file.read()
         url = 'https://dapi.kakao.com/v2/vision/text/ocr'
         headers = {"Authorization": f'KakaoAK {kakao_key}'}
@@ -279,7 +279,7 @@ def ocr():
                 draw.rectangle((tuple(obj['boxes'][0]), tuple(obj['boxes'][2])), width=5)
             texts.append(obj['recognition_words'][0])
         
-        ocr_img = os.path.join(current_app.root_path, 'static/tmp/ocr'+image_type)
+        ocr_img = os.path.join(current_app.static_folder, 'tmp/ocr'+image_type)
         img.save(ocr_img)
         mtime = int(os.stat(ocr_img).st_mtime)
         return render_template('advanced/ocr_res.html', menu=menu, weather=get_weather(),
@@ -292,7 +292,7 @@ def detect():
         return render_template('advanced/detect.html', menu=menu, weather=get_weather())
     else:
         f_img = request.files['image']
-        file_img = os.path.join(current_app.root_path, 'static/upload/') + f_img.filename
+        file_img = os.path.join(current_app.static_folder, 'upload/') + f_img.filename
         f_img.save(file_img)
         _, image_type = os.path.splitext(f_img.filename)
         image_type = 'jpg' if image_type == '.jfif' else image_type[1:]
@@ -336,7 +336,7 @@ def detect():
             draw.text((x+10,y+10), name, font=ImageFont.truetype('NanumGothic.ttf', 20), fill=(255,0,0))
             draw.rectangle(((x, y), (x+w, y+h)), outline=(255,0,0), width=2)
             object_list.append(name)
-        object_img = os.path.join(current_app.root_path, 'static/tmp/object.'+image_type)
+        object_img = os.path.join(current_app.static_folder, 'tmp/object.'+image_type)
         image.save(object_img)
         mtime = int(os.stat(object_img).st_mtime)
         return render_template('advanced/detect_res.html', menu=menu, weather=get_weather(),

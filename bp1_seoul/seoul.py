@@ -1,5 +1,5 @@
 import logging
-from flask import Blueprint, render_template, request, session, g
+from flask import Blueprint, render_template, request
 from flask import current_app
 import os, folium, json
 from folium.features import DivIcon

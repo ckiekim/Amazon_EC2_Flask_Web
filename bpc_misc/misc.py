@@ -1,9 +1,6 @@
-from flask import Blueprint, render_template, request, session, g
+from flask import Blueprint, render_template, request
 from flask import current_app, flash, redirect
 import os, random
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 from datetime import datetime
 from my_util.weather import get_weather
 

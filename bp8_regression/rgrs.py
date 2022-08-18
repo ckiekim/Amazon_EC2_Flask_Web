@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session, g
+from flask import Blueprint, render_template, request
 from flask import current_app
 from sklearn.linear_model import LinearRegression
 import os
@@ -25,7 +25,7 @@ def diabetes():
         index = gu.get_index(request.form['index'], diabetes_max_index)
         #index = int(request.form['index'] or '0')
         feature = request.form['feature']
-        df = pd.read_csv('static/data/diabetes_train.csv')
+        df = pd.read_csv(os.path.join(current_app.static_folder, 'data/diabetes_train.csv'))
         X = df[feature].values.reshape(-1,1)
         y = df.target.values
 
@@ -33,7 +33,7 @@ def diabetes():
         lr.fit(X, y)
         weight, bias = lr.coef_, lr.intercept_
 
-        df_test = pd.read_csv('static/data/diabetes_test.csv')
+        df_test = pd.read_csv(os.path.join(current_app.static_folder, 'data/diabetes_test.csv'))
         X_test = df_test[feature][index]
         y_test = df_test.target[index]
         pred = np.round(X_test * weight[0] + bias, 2)
@@ -47,7 +47,7 @@ def diabetes():
         plt.grid()
         plt.legend()
         plt.title(f'Diabetes target vs. {feature}')
-        img_file = os.path.join(current_app.root_path, 'static/tmp/diabetes.png')
+        img_file = os.path.join(current_app.static_folder, 'tmp/diabetes.png')
         plt.savefig(img_file)
         mtime = int(os.stat(img_file).st_mtime)
 
@@ -68,7 +68,7 @@ def iris():
                        'species':['Setosa', 'Versicolor', 'Virginica']}
         column_list = list(column_dict.keys())
 
-        df = pd.read_csv('static/data/iris_train.csv')
+        df = pd.read_csv(os.path.join(current_app.static_folder, 'data/iris_train.csv'))
         df.columns = column_list
         X = df.drop(columns=feature_name, axis=1).values
         y = df[feature_name].values
@@ -77,7 +77,7 @@ def iris():
         lr.fit(X, y)
         weight, bias = lr.coef_, lr.intercept_
 
-        df_test = pd.read_csv('static/data/iris_test.csv')
+        df_test = pd.read_csv(os.path.join(current_app.static_folder, 'data/iris_test.csv'))
         df_test.columns = column_list
         X_test = df_test.drop(columns=feature_name, axis=1).values[index]
         pred_value = np.dot(X_test, weight.T) + bias
@@ -103,7 +103,7 @@ def boston():
         feature_list = request.form.getlist('feature')
         if len(feature_list) == 0:
             feature_list = ['RM', 'LSTAT']
-        df = pd.read_csv('static/data/boston_train.csv')
+        df = pd.read_csv(os.path.join(current_app.static_folder, 'data/boston_train.csv'))
         X = df[feature_list].values
         y = df.target.values
 
@@ -111,7 +111,7 @@ def boston():
         lr.fit(X, y)
         weight, bias = lr.coef_, lr.intercept_
 
-        df_test = pd.read_csv('static/data/boston_test.csv')
+        df_test = pd.read_csv(os.path.join(current_app.static_folder, 'data/boston_test.csv'))
         X_test = df_test[feature_list].values[index, :]
         y_test = df_test.target[index]
         pred = np.dot(X_test, weight.T) + bias      # tmp = lr.predict(X_test.reshape(1,-1))
