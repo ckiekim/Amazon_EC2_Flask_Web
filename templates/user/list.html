@@ -19,20 +19,20 @@
                     <th class="col-1">번호</th>
                     <th class="col-2">uid</th>
                     <th class="col-2">이름</th>
-                    <th class="col-3">이메일</th>
+                    <th class="col-4">이메일</th>
                     <th class="col-2">가입일</th>
-                    <th class="col-2">액션</th>
+                    <th class="col-1">액션</th>
                 </tr>
                 {% for row in user_list %}
                     <tr class="d-flex">
                         <td class="col-1">{{loop.index}}</td>
                         <td class="col-2">{{row[0]}}</td>
                         <td class="col-2">{{row[1]}}</td>
-                        <td class="col-3">{{row[2]}}</td>
+                        <td class="col-4">{{row[2]}}</td>
                         <td class="col-2">{{row[3]}}</td>
-                        <td class="col-2">
+                        <td class="col-1">
                             <a href="/user/update/{{row[0]}}"><i class="fas fa-user-edit"></i></a>
-                            <a href="/user/delete/{{row[0]}}" class="ml-2"><i class="fas fa-user-minus"></i></a>
+                            <a href="/user/delete/{{row[0]}}" class="ml-1"><i class="fas fa-user-minus"></i></a>
                         </td>
                     </tr>
                 {% endfor %}
