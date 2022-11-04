@@ -1,6 +1,5 @@
-from flask import Blueprint, render_template, request, session, g
+from flask import Blueprint, render_template, request
 from flask import current_app
-from werkzeug.utils import secure_filename
 import os, logging
 from my_util.weather import get_weather
 from my_util.wordCloud import engCloud, hanCloud
@@ -12,8 +11,8 @@ menu = {'ho':0, 'bb':0, 'ma':0, 'us':0, 'li':0,
 
 @cloud_bp.route('/han/gift')
 def gift():
-    textfile = os.path.join(current_app.root_path, 'static/data/gift.txt')
-    maskfile = os.path.join(current_app.root_path, 'static/img/heart.jpg')
+    textfile = os.path.join(current_app.static_folder, 'data/gift.txt')
+    maskfile = os.path.join(current_app.static_folder, 'img/heart.jpg')
     logging.debug(f'{textfile}, {maskfile}')
     stoptext = """
         선물 추천 것 가격 수 기능 제품 저 제 생각 여자 여자친구 사용 요 더 구매 고급 주문
@@ -23,7 +22,7 @@ def gift():
         확인 채택 수수료 정액 답변 스 이 제공 정말 파트너 생일 변경 지금 활동 쿠팡 통해 각인
     """
     stop_words = stoptext.split()
-    img_file = os.path.join(current_app.root_path, 'static/tmp/text.png')
+    img_file = os.path.join(current_app.static_folder, 'tmp/text.png')
     with open(textfile, encoding='utf-8') as fp:
         text = fp.read()
     hanCloud(text, stop_words, maskfile, img_file)
@@ -35,16 +34,16 @@ def gift():
 def eng(option):
     if option == 'Alice':
         filename = 'Alice.txt'
-        maskfile = os.path.join(current_app.root_path, 'static/img/Alice_mask.png')
+        maskfile = os.path.join(current_app.static_folder, 'img/Alice_mask.png')
         stop_words = ['said']
     else:
         filename = 'A_new_hope.txt'
-        maskfile = os.path.join(current_app.root_path, 'static/img/Stormtrooper_mask.png')
+        maskfile = os.path.join(current_app.static_folder, 'img/Stormtrooper_mask.png')
         stop_words = ['int', 'ext']
     
-    textfile = os.path.join(current_app.root_path, 'static/data/') + filename
+    textfile = os.path.join(current_app.static_folder, 'data/') + filename
     logging.debug(f'{textfile}, {maskfile}')
-    img_file = os.path.join(current_app.root_path, 'static/tmp/text.png')
+    img_file = os.path.join(current_app.static_folder, 'tmp/text.png')
     with open(textfile) as fp:
         text = fp.read()
     if option == 'Starwars':
@@ -62,11 +61,11 @@ def text():
     else:
         lang = request.form['lang']
         f_text = request.files['text']
-        file_text = os.path.join(current_app.root_path, 'static/upload/') + f_text.filename
+        file_text = os.path.join(current_app.static_folder, 'upload/') + f_text.filename
         f_text.save(file_text)
         if request.files['mask']:
             f_mask = request.files['mask']
-            file_mask = os.path.join(current_app.root_path, 'static/upload/') + f_mask.filename
+            file_mask = os.path.join(current_app.static_folder, 'upload/') + f_mask.filename
             f_mask.save(file_mask)
         else:
             file_mask = None
@@ -75,7 +74,7 @@ def text():
 
         text = open(file_text, encoding='utf-8').read()
         stop_words = stop_words.split(' ') if stop_words else []
-        img_file = os.path.join(current_app.root_path, 'static/tmp/text.png')
+        img_file = os.path.join(current_app.static_folder, 'tmp/text.png')
         if lang == 'en':
             engCloud(text, stop_words, file_mask, img_file)
         else:

@@ -12,10 +12,10 @@ menu = {'ho':0, 'bb':0, 'ma':0, 'us':0, 'li':0,
 
 @carto_bp.route('/pop/<option>')
 def population(option):
-    df_pop = pd.read_csv('./static/data/population.csv')
+    df_pop = pd.read_csv(os.path.join(current_app.static_folder, 'data/population.csv'))
     column_dict = {'crisis_area':'소멸위기지역', 'crisis_ratio':'소멸비율', 'high_crisis':'소멸위기고위험지역'}
     color_dict = {'crisis_area':'Reds', 'crisis_ratio':'Oranges', 'high_crisis':'Purples'}
-    img_file = os.path.join(current_app.root_path, 'static/tmp/population.png')
+    img_file = os.path.join(current_app.static_folder, 'tmp/population.png')
     dk.drawKorea(column_dict[option], df_pop, color_dict[option], img_file)
     mtime = int(os.stat(img_file).st_mtime)
     return render_template('cartogram/population.html', menu=menu, weather=get_weather(),
@@ -27,11 +27,11 @@ def coffee():
         return render_template('cartogram/coffee.html', menu=menu, weather=get_weather())
     else:
         item = request.form['item']
-        coffee_index = pd.read_csv('./static/data/커피지수.csv', 
+        coffee_index = pd.read_csv(os.path.join(current_app.static_folder, 'data/커피지수.csv'), 
                                    dtype={'이디야':int, '스타벅스':int, '커피빈':int, '빽다방':int})
 
         color_dict = {'커피지수':'Reds', '이디야':'Blues', '스타벅스':'Greens', '커피빈':'PuBu', '빽다방':'Oranges'}
-        img_file = os.path.join(current_app.root_path, 'static/tmp/coffee.png')
+        img_file = os.path.join(current_app.static_folder, 'tmp/coffee.png')
         dk.drawKorea(item, coffee_index, color_dict[item], img_file)
         mtime = int(os.stat(img_file).st_mtime)
 

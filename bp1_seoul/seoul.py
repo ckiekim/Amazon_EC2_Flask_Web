@@ -1,5 +1,5 @@
 import logging
-from flask import Blueprint, render_template, request, session, g
+from flask import Blueprint, render_template, request
 from flask import current_app
 import os, folium, json
 from folium.features import DivIcon
@@ -20,8 +20,8 @@ mpl.rc('font', family='NanumGothic')
 
 @seoul_bp.route('/park', methods=['GET', 'POST'])
 def park():
-    park_new = pd.read_csv('./static/data/park_info.csv')
-    park_gu = pd.read_csv('./static/data/park_gu.csv')
+    park_new = pd.read_csv(os.path.join(current_app.static_folder, 'data/park_info.csv'))
+    park_gu = pd.read_csv(os.path.join(current_app.static_folder, 'data/park_gu.csv'))
     park_gu.set_index('지역', inplace=True)
     if request.method == 'GET':
         map = folium.Map(location=[37.5502, 126.982], zoom_start=11)
@@ -30,7 +30,7 @@ def park():
                                 radius=int(park_new['size'][i]),
                                 tooltip=f"{park_new['공원명'][i]}({int(park_new.area[i])}㎡)",
                                 color='#3186cc', fill_color='#3186cc').add_to(map)
-        html_file = os.path.join(current_app.root_path, 'static/tmp/park.html')
+        html_file = os.path.join(current_app.static_folder, 'tmp/park.html')
         map.save(html_file)
         mtime = int(os.stat(html_file).st_mtime)
         return render_template('seoul/park.html', menu=menu, weather=get_weather(),
@@ -52,7 +52,7 @@ def park():
             folium.CircleMarker([df.lat[0], df.lng[0]], radius=int(df['size'][0]),
                                     tooltip=f"{df['공원명'][0]}({int(df.area[0])}㎡)",
                                     color='crimson', fill_color='crimson').add_to(map)
-            html_file = os.path.join(current_app.root_path, 'static/tmp/park_res.html')
+            html_file = os.path.join(current_app.static_folder, 'tmp/park_res.html')
             map.save(html_file)
             mtime = int(os.stat(html_file).st_mtime)
             return render_template('seoul/park_res.html', menu=menu, weather=get_weather(),
@@ -72,7 +72,7 @@ def park():
                                     radius=int(df['size'][i])*3,
                                     tooltip=f"{df['공원명'][i]}({int(df.area[i])}㎡)",
                                     color='#3186cc', fill_color='#3186cc').add_to(map)
-            html_file = os.path.join(current_app.root_path, 'static/tmp/park_res.html')
+            html_file = os.path.join(current_app.static_folder, 'tmp/park_res.html')
             map.save(html_file)
             mtime = int(os.stat(html_file).st_mtime)
             return render_template('seoul/park_res2.html', menu=menu, weather=get_weather(),
@@ -80,10 +80,10 @@ def park():
 
 @seoul_bp.route('/park_gu/<option>')
 def park_gu(option):
-    park_new = pd.read_csv('./static/data/park_info.csv')
-    park_gu = pd.read_csv('./static/data/park_gu.csv')
+    park_new = pd.read_csv(os.path.join(current_app.static_folder, 'data/park_info.csv'))
+    park_gu = pd.read_csv(os.path.join(current_app.static_folder, 'data/park_gu.csv'))
     park_gu.set_index('지역', inplace=True)
-    geo_str = json.load(open('./static/data/skorea_municipalities_geo_simple.json',
+    geo_str = json.load(open(os.path.join(current_app.static_folder,'data/skorea_municipalities_geo_simple.json'),
                          encoding='utf8'))
     option_dict = {'area':'공원면적', 'count':'공원수', 'area_ratio':'공원면적 비율', 'per_person':'인당 공원면적'}
     column_index = option_dict[option].replace(' ','')
@@ -105,7 +105,7 @@ def park_gu(option):
                         radius=int(park_new['size'][i]),
                         tooltip=f"{park_new['공원명'][i]}({int(park_new.area[i])}㎡)",
                         color='green', fill_color='green').add_to(map)
-    html_file = os.path.join(current_app.root_path, 'static/tmp/park_gu.html')
+    html_file = os.path.join(current_app.static_folder, 'tmp/park_gu.html')
     map.save(html_file)
     mtime = int(os.stat(html_file).st_mtime)
     return render_template('seoul/park_gu.html', menu=menu, weather=get_weather(),
@@ -113,9 +113,9 @@ def park_gu(option):
 
 @seoul_bp.route('/crime/<option>')
 def crime(option):
-    crime = pd.read_csv('./static/data/crime.csv', index_col='구별')
-    police = pd.read_csv('./static/data/police.csv')
-    geo_str = json.load(open('./static/data/skorea_municipalities_geo_simple.json',
+    crime = pd.read_csv(os.path.join(current_app.static_folder, 'data/crime.csv'), index_col='구별')
+    police = pd.read_csv(os.path.join(current_app.static_folder, 'data/police.csv'))
+    geo_str = json.load(open(os.path.join(current_app.static_folder, 'data/skorea_municipalities_geo_simple.json'),
                          encoding='utf8'))
     option_dict = {'crime':'범죄', 'murder':'살인', 'rob':'강도', 'rape':'강간', 'thief':'절도', 'violence':'폭력',
                    'arrest':'검거율', 'a_murder':'살인검거율', 'a_rob':'강도검거율', 'a_rape':'강간검거율', 
@@ -144,7 +144,7 @@ def crime(option):
             )
         ).add_to(map)
 
-    html_file = os.path.join(current_app.root_path, 'static/tmp/crime.html')
+    html_file = os.path.join(current_app.static_folder, 'tmp/crime.html')
     map.save(html_file)
     mtime = int(os.stat(html_file).st_mtime)
     return render_template('seoul/crime.html', menu=menu, weather=get_weather(),
@@ -152,7 +152,7 @@ def crime(option):
 
 @seoul_bp.route('/cctv/<option>')
 def cctv(option):
-    df = pd.read_csv('./static/data/cctv.csv')
+    df = pd.read_csv(os.path.join(current_app.static_folder, 'data/cctv.csv'))
     df.set_index('구별', inplace=True)
     df_sort = df.sort_values('오차', ascending=False)
 
@@ -177,7 +177,7 @@ def cctv(option):
         plt.xlabel('인구수')
         plt.ylabel('CCTV')
         plt.colorbar()
-        img_file = os.path.join(current_app.root_path, 'static/tmp/cctv.png')
+        img_file = os.path.join(current_app.static_folder, 'tmp/cctv.png')
         plt.savefig(img_file)
         mtime = int(os.stat(img_file).st_mtime)
 

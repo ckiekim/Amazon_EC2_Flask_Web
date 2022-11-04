@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, request, session
-from flask import current_app, redirect, url_for
+from flask import Blueprint, render_template, request
+from flask import current_app
 import os, requests, re, joblib
 from urllib.parse import quote
-#from konlpy.tag import Okt
 from my_util.global_vars import okt
 from my_util.weather import get_weather
 
@@ -28,7 +27,7 @@ def translate():
         lang = request.form['lang']
 
         # 카카오 번역기
-        with open('static/keys/kakaoaikey.txt') as kfile:
+        with open(os.path.join(current_app.static_folder, 'keys/kakaoaikey.txt')) as kfile:
             kai_key = kfile.read()
         text = text.replace('\n',' ').replace('\r','')
         k_url = f'https://dapi.kakao.com/v2/translation/translate?query={quote(text)}&src_lang=kr&target_lang={lang}'
@@ -48,7 +47,7 @@ def tts():
         text = request.form['text']
 
         # 카카오 음성합성 - 음성 활성화 설정을 ON 해야함
-        with open('static/keys/kakaoaikey.txt') as kfile:
+        with open(os.path.join(current_app.static_folder, 'keys/kakaoaikey.txt')) as kfile:
             kai_key = kfile.read()
         data = f'<speak>{text}</speak>'
         t_url = 'https://kakaoi-newtone-openapi.kakao.com/v1/synthesize'
@@ -56,7 +55,7 @@ def tts():
                 "Authorization": "KakaoAK " + kai_key}
         response = requests.post(t_url, data=data.encode('utf-8'), headers=headers)
         rescode = response.status_code
-        audio_file = os.path.join(current_app.root_path, 'static/tmp/tts.mp3')
+        audio_file = os.path.join(current_app.static_folder, 'tmp/tts.mp3')
         if rescode == 200:
             with open(audio_file, 'wb') as f:
                 f.write(response.content)
@@ -74,7 +73,7 @@ def emotion():
         text = request.form['text']
 
         # 카카오 언어감지
-        with open('static/keys/kakaoaikey.txt') as kfile:
+        with open(os.path.join(current_app.static_folder, 'keys/kakaoaikey.txt')) as kfile:
             kai_key = kfile.read(100)
         k_url = f'https://dapi.kakao.com/v3/translation/language/detect?query={quote(text)}'
         result = requests.get(k_url,
@@ -101,8 +100,8 @@ def emotion():
         ko_review = ' '.join([word for word in morphs if not word in stopwords]) # 불용어 제거
         en_review = tr_text if lang == 'kr' else text
 
-        naver_tfidf_nb = joblib.load('static/model/naver_tfidf_nb.pkl')
-        imdb_tfidf_lr = joblib.load('static/model/imdb_tfidf_lr.pkl')
+        naver_tfidf_nb = joblib.load(os.path.join(current_app.static_folder, 'model/naver_tfidf_nb.pkl'))
+        imdb_tfidf_lr = joblib.load(os.path.join(current_app.static_folder, 'model/imdb_tfidf_lr.pkl'))
         pred_ko = '긍정' if naver_tfidf_nb.predict([ko_review])[0] else '부정'
         pred_en = '긍정' if imdb_tfidf_lr.predict([en_review])[0] else '부정'
 

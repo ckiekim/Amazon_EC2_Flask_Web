@@ -113,8 +113,8 @@ def ckupload():
         fileobj = request.files['upload']
         fname, fext = os.path.splitext(fileobj.filename)
         rnd_name = '%s%s' % (gen_rnd_filename(), fext)
-        if not os.path.exists(os.path.join(current_app.root_path, 'static/upload')):
-            os.makedirs(os.path.join(current_app.root_path, 'static/upload'))
+        if not os.path.exists(os.path.join(current_app.static_folder, 'upload')):
+            os.makedirs(os.path.join(current_app.static_folder, 'upload'))
         filepath = os.path.join(current_app.static_folder, 'upload', rnd_name)
         fileobj.save(filepath)
         url = url_for('static', filename='%s/%s' % ('upload', rnd_name))

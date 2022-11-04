@@ -1,13 +1,8 @@
-from flask import Blueprint, render_template, request, session, g
-from flask import current_app, redirect, url_for
-from sklearn.datasets import load_digits
-#from konlpy.tag import Okt
+from flask import Blueprint, render_template, request, current_app
 from my_util.global_vars import okt
 import os, re, joblib
 import logging
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import my_util.general_util as gu
 from my_util.weather import get_weather
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
@@ -33,7 +28,7 @@ def spam():
     else:
         if request.form['option'] == 'index':
             index = gu.get_index(request.form['index'], spam_max_index)
-            df_test = pd.read_csv('static/data/spam_test.csv')
+            df_test = pd.read_csv(os.path.join(current_app.static_folder, 'data/spam_test.csv'))
             content = df_test.content[index]
             label = '스팸' if df_test.label[index] else '정상'
         else:
@@ -41,8 +36,8 @@ def spam():
             label = '직접 확인'
 
         test_data = [re.sub('[^A-Za-z0-9]',' ',content).strip().lower()]
-        spam_count_nb = joblib.load('static/model/spam_count_nb.pkl')
-        spam_tfidf_lr = joblib.load('static/model/spam_tfidf_lr.pkl')
+        spam_count_nb = joblib.load(os.path.join(current_app.static_folder, 'model/spam_count_nb.pkl'))
+        spam_tfidf_lr = joblib.load(os.path.join(current_app.static_folder, 'model/spam_tfidf_lr.pkl'))
         pred_cn = '스팸' if spam_count_nb.predict(test_data)[0] else '정상'
         pred_tl = '스팸' if spam_tfidf_lr.predict(test_data)[0] else '정상'
         result_dict = {'label':label, 'pred_cn':pred_cn, 'pred_tl':pred_tl}
@@ -58,15 +53,15 @@ def imdb():
         if request.form['option'] == 'index':
             index = gu.get_index(request.form['index'], imdb_max_index)
             #index = int(request.form['index'] or '0')
-            df_test = pd.read_csv('static/data/IMDB_test.csv')
+            df_test = pd.read_csv(os.path.join(current_app.static_folder, 'data/IMDB_test.csv'))
             test_data.append(df_test.iloc[index, 0])
             label = '긍정' if df_test.sentiment[index] else '부정'
         else:
             test_data.append(request.form['review'])
             label = '직접 확인'
 
-        imdb_count_lr = joblib.load('static/model/imdb_count_lr.pkl')
-        imdb_tfidf_lr = joblib.load('static/model/imdb_tfidf_lr.pkl')
+        imdb_count_lr = joblib.load(os.path.join(current_app.static_folder, 'model/imdb_count_lr.pkl'))
+        imdb_tfidf_lr = joblib.load(os.path.join(current_app.static_folder, 'model/imdb_tfidf_lr.pkl'))
         pred_cl = '긍정' if imdb_count_lr.predict(test_data)[0] else '부정'
         pred_tl = '긍정' if imdb_tfidf_lr.predict(test_data)[0] else '부정'
         result_dict = {'label':label, 'pred_cl':pred_cl, 'pred_tl':pred_tl}
@@ -81,7 +76,7 @@ def naver():
         if request.form['option'] == 'index':
             index = gu.get_index(request.form['index'], naver_max_index)
             #index = int(request.form['index'] or '0')
-            df_test = pd.read_csv('static/data/naver/movie_test.tsv', sep='\t')
+            df_test = pd.read_csv(os.path.join(current_app.static_folder, 'data/naver/movie_test.tsv'), sep='\t')
             org_review = df_test.document[index]
             label = '긍정' if df_test.label[index] else '부정'
         else:
@@ -96,10 +91,10 @@ def naver():
         temp_X = ' '.join([word for word in morphs if not word in stopwords]) # 불용어 제거
         test_data.append(temp_X)
 
-        naver_count_lr = joblib.load('static/model/naver_count_lr.pkl')
-        naver_count_nb = joblib.load('static/model/naver_count_nb.pkl')
-        naver_tfidf_lr = joblib.load('static/model/naver_tfidf_lr.pkl')
-        naver_tfidf_nb = joblib.load('static/model/naver_tfidf_nb.pkl')
+        naver_count_lr = joblib.load(os.path.join(current_app.static_folder, 'model/naver_count_lr.pkl'))
+        naver_count_nb = joblib.load(os.path.join(current_app.static_folder, 'model/naver_count_nb.pkl'))
+        naver_tfidf_lr = joblib.load(os.path.join(current_app.static_folder, 'model/naver_tfidf_lr.pkl'))
+        naver_tfidf_nb = joblib.load(os.path.join(current_app.static_folder, 'model/naver_tfidf_nb.pkl'))
         pred_cl = '긍정' if naver_count_lr.predict(test_data)[0] else '부정'
         pred_cn = '긍정' if naver_count_nb.predict(test_data)[0] else '부정'
         pred_tl = '긍정' if naver_tfidf_lr.predict(test_data)[0] else '부정'
@@ -116,16 +111,16 @@ def shopping():
     else:
         if request.form['option'] == 'index':
             index = gu.get_index(request.form['index'], shopping_max_index)
-            df = pd.read_csv('static/data/shopping_test.csv')
+            df = pd.read_csv(os.path.join(current_app.static_folder, 'data/shopping_test.csv'))
             org_review = df.reviews.values[index]
             label = '긍정' if df.label.values[index] > 0.5 else '부정'
         else:
             org_review = request.form['review']
             label = '직접 확인'
         stopwords = ['의','가','이','은','들','는','좀','잘','걍','과','도','를','으로','자','에','와','한','하다','을','ㅋㅋ','ㅠㅠ','ㅎㅎ']
-        t = joblib.load('static/model/shopping_tokenizer.pkl')
+        t = joblib.load(os.path.join(current_app.static_folder, 'model/shopping_tokenizer.pkl'))
         max_len = 60
-        model = load_model('static/model/shopping_lstm.h5')
+        model = load_model(os.path.join(current_app.static_folder, 'model/shopping_lstm.h5'))
         
         review = re.sub('[^ㄱ-ㅎㅏ-ㅣ가-힣 ]', '', org_review)
         morphs = okt.morphs(review, stem=True)
@@ -148,7 +143,7 @@ def imdb_lexicon():
         senti_analyzer = SentimentIntensityAnalyzer()
         if request.form['option'] == 'index':
             index = gu.get_index(request.form['index'], imdb_lexicon_max_index)
-            df = pd.read_csv('static/data/IMDBdata.tsv', sep='\t', quoting=3)
+            df = pd.read_csv(os.path.join(current_app.static_folder, 'data/IMDBdata.tsv'), sep='\t', quoting=3)
             review = df.review[index].replace('<br />',' ')
             review = re.sub('[^A-Za-z]',' ',review).strip()
             label = '긍정' if df.sentiment[index] == 1 else '부정'

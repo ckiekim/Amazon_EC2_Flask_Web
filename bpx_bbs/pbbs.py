@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, session
-from flask import current_app, redirect, url_for, flash, make_response
+from flask import current_app, redirect, url_for, flash
 import os, math, json
 import db.pdb_module as pm
 from my_util.weather import get_weather
@@ -80,7 +80,7 @@ def register():
         co = request.form['co'].strip()             # course organization
         
         files = []
-        upload_path = os.path.join(current_app.root_path, 'static/project_upload')
+        upload_path = os.path.join(current_app.static_folder, 'project_upload')
         f_pdf = request.files['pdf']
         if f_pdf:
             fname = modify_filename(f_pdf.filename)
@@ -140,7 +140,7 @@ def update(pid):
         for file in files:
             fname = modify_filename(file.filename)
             filelist.append(fname)
-            file_up = os.path.join(current_app.root_path, 'static/project_upload/') + fname
+            file_up = os.path.join(current_app.static_folder, 'project_upload/') + fname
             file.save(file_up)
             
         params = (title,content,cn,co,json.dumps(authors),term,json.dumps(ht_list),days,json.dumps(filelist),pid)

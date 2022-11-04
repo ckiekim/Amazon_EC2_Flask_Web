@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session
+from flask import Blueprint, render_template, request
 from flask import current_app, redirect, url_for
 from my_util.weather import get_weather
 import my_util.crawl_util as cu
@@ -55,7 +55,7 @@ def anime():
     else:
         version = request.form['version']
         f_src = request.files['face']
-        file_src = os.path.join(current_app.root_path, 'static/upload/') + f_src.filename
+        file_src = os.path.join(current_app.static_folder, 'upload/') + f_src.filename
         f_src.save(file_src)
         return render_template('crawling/anime_spinner.html', menu=menu, weather=get_weather(),
                                 src=f_src.filename, version=version)
@@ -64,9 +64,9 @@ def anime():
 def anime_res():
     version = request.form['version']
     src = request.form['src']
-    animeGAN(src, os.path.join(current_app.root_path, 'static/upload/'), version)
+    animeGAN(src, os.path.join(current_app.static_folder, 'upload/'), version)
 
-    file_dst = os.path.join(current_app.root_path, 'static/upload/') + "animated_image.jpg"
+    file_dst = os.path.join(current_app.static_folder, 'upload/') + "animated_image.jpg"
     mtime = int(os.stat(file_dst).st_mtime)
     return render_template('crawling/anime_res.html', menu=menu, weather=get_weather(),
                             src=src, version=version, mtime=mtime)
